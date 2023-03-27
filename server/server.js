@@ -1,12 +1,15 @@
 const express = require("express");
 const app = express();
-
+const routes = require("./routes");
+const connect = require("./config/mongoConnection");
 const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(routes);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+connect().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });

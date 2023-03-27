@@ -1,6 +1,9 @@
 const dayjs = require("dayjs");
 const { default: axios } = require("axios");
-
+const {
+  setHistoricalCryptoCache,
+  setMarketCache,
+} = require("../middleware/cryptoCache");
 const URL = "https://api.coingecko.com/api/v3/";
 
 function formatData(historicalData) {
@@ -31,6 +34,7 @@ module.exports = {
           return res.status(400).json({ message: "Error fetching coin data" });
         }
         const sortedData = formatData(data);
+        setHistoricalCryptoCache(id, days, sortedData);
         res.json(sortedData);
       } catch (err) {
         console.log(err);
@@ -47,6 +51,7 @@ module.exports = {
       if (!data.length) {
         return res.status(400).json({ message: "Error fetching market data" });
       }
+      setMarketCache(data);
       res.json(data);
     } catch (err) {
       res.status(500).json({ message: "An error occured" });

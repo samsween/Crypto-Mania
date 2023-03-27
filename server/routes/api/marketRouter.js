@@ -3,7 +3,11 @@ const {
   getHistoricalData,
   getMarketData,
 } = require("../../controller/marketController");
+const {
+  marketCache,
+  historicalCryptoCache,
+} = require("../../middleware/cryptoCache");
 
-router.get("/market", getMarketData);
+router.get("/market", marketCache, getMarketData);
 
-router.get("/historical", getHistoricalData);
+router.get("/historical", historicalCryptoCache, getHistoricalData);

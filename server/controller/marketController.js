@@ -23,24 +23,22 @@ function formatData(historicalData) {
 
 module.exports = {
   getHistoricalData: async (req, res) => {
-    async (req, res) => {
-      const { id, days } = req.query;
-      try {
-        const response = await axios.get(
-          `${URL}coins/${id}/market_chart?vs_currency=aud&days=${days}`
-        );
-        const data = await response.data;
-        if (!data.prices) {
-          return res.status(400).json({ message: "Error fetching coin data" });
-        }
-        const sortedData = formatData(data);
-        setHistoricalCryptoCache(id, days, sortedData);
-        res.json(sortedData);
-      } catch (err) {
-        console.log(err);
-        res.status(500).json({ message: "An error occured" });
+    const { id, days } = req.query;
+    try {
+      const response = await axios.get(
+        `${URL}coins/${id}/market_chart?vs_currency=aud&days=${days}`
+      );
+      const data = await response.data;
+      if (!data.prices) {
+        return res.status(400).json({ message: "Error fetching coin data" });
       }
-    };
+      const sortedData = formatData(data);
+      setHistoricalCryptoCache(id, days, sortedData);
+      res.json(sortedData);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "An error occured" });
+    }
   },
   getMarketData: async (req, res) => {
     try {

@@ -21,7 +21,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  heldCrypto: [
+  crypto: [
     {
       type: Schema.Types.ObjectId,
       ref: "Crypto",

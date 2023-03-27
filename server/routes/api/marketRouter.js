@@ -1,14 +1,14 @@
 const router = require("express").Router();
 const dayjs = require("dayjs");
-const axios = require("axios");
+const { default: axios } = require("axios");
 const URL = "https://api.coingecko.com/api/v3/";
 
 router.get("/market", async (req, res) => {
   try {
-    const response = await fetch(
+    const response = await axios.get(
       `${URL}coins/markets?vs_currency=aud&order=market_cap_desc&per_page=100&page=1&sparkline=false`
     );
-    const data = await response.json();
+    const data = await response.data;
     if (!data.length) {
       return res.status(400).json({ message: "Error fetching market data" });
     }
@@ -21,10 +21,10 @@ router.get("/market", async (req, res) => {
 router.get("/historical", async (req, res) => {
   const { id, days } = req.query;
   try {
-    const response = await fetch(
+    const response = await axios.get(
       `${URL}coins/${id}/market_chart?vs_currency=aud&days=${days}`
     );
-    const data = await response.json();
+    const data = await response.data;
     if (!data.prices) {
       return res.status(400).json({ message: "Error fetching coin data" });
     }

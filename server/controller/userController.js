@@ -20,7 +20,7 @@ module.exports = {
         .cookie(
           "token",
           signJwt({ id: newUser._id, username: newUser.username }),
-          { httpOnly: true, sameSite: "none", secure: true }
+          { httpOnly: false, sameSite: "none", secure: false }
         )
         .json({ username: newUser.username, money: newUser.money });
     } catch (err) {
@@ -41,9 +41,9 @@ module.exports = {
       return res
         .status(201)
         .cookie("token", signJwt({ id: user._id, username: user.username }), {
-          httpOnly: true,
+          httpOnly: false,
           sameSite: "none",
-          secure: true,
+          secure: false,
         })
         .json({ username: user.username, money: user.money });
     } catch (err) {

@@ -13,3 +13,5 @@ router.get(
   cryptoMiddleware.historicalCryptoCache,
   marketController.getHistoricalData
 );
+
+module.exports = router;

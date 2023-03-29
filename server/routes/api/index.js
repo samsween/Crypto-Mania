@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const userRouter = require("./api/userRouter");
-const marketRouter = require("./api/marketRouter");
+const userRouter = require("./userRouter");
+const marketRouter = require("./marketRouter");
 
 router.use("/user", userRouter);
 router.use("/market", marketRouter);

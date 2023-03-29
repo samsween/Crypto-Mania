@@ -66,29 +66,29 @@ module.exports = {
   sellCrypto: ({ body, user }, res) => {
     const { symbol, quantity, price } = body;
     const userId = user.id;
-    Crypto.findOneAndUpdate(
-      { symbol, user: userId },
-      {
-        $push: {
-          soldPositions: {
-            price: parseFloat(price),
-            quantity: parseFloat(quantity),
-            date: new Date(),
+    Crypto.findOne({ symbol, user: userId }).then((crypto) => {
+      if (crypto.total < parseFloat(quantity))
+        return res.status(400).json({ error: "Not enough crypto" });
+      crypto
+        .updateOne(
+          {
+            $inc: { total: -parseFloat(quantity) },
+            $push: {
+              soldPositions: { price, quantity, date: new Date() },
+            },
           },
-        },
-        $inc: { total: -parseFloat(quantity) },
-      },
-      { new: true }
-    ).then((crypto) => {
-      User.findOneAndUpdate(
-        { __id: userId },
-        {
-          $inc: { money: parseFloat(price) },
-        },
-        { new: true }
-      ).then((user) => {
-        res.json(crypto);
-      });
+          { new: true }
+        )
+        .then((crypto) => {
+          User.findOneAndUpdate(
+            { __id: userId },
+            {
+              $inc: { money: parseFloat(price) },
+            },
+            { new: true }
+          );
+          return res.json(crypto);
+        });
     });
   },
 };

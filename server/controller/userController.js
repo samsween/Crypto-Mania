@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const { signJwt } = require("../utils/jwt");
 
 module.exports = {
   register: async (req, res) => {
@@ -14,7 +15,14 @@ module.exports = {
         password,
       });
       await newUser.save();
-      res.status(201).json({ message: "User created" });
+      res
+        .status(201)
+        .cookie(
+          "token",
+          signJwt({ id: newUser._id, username: newUser.username }),
+          { httpOnly: true, sameSite: "none", secure: true }
+        )
+        .json({ username: newUser.username, money: newUser.money });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -30,7 +38,14 @@ module.exports = {
       if (!isValidPassword) {
         return res.status(400).json({ error: "Invalid username or password" });
       }
-      res.status(200).json({ message: "Login successful" });
+      return res
+        .status(201)
+        .cookie("token", signJwt({ id: user._id, username: user.username }), {
+          httpOnly: true,
+          sameSite: "none",
+          secure: true,
+        })
+        .json({ username: user.username, money: user.money });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }

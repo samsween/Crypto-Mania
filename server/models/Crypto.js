@@ -1,35 +1,54 @@
 const mongoose = require("mongoose");
+const dayjs = require("dayjs");
 const Schema = mongoose.Schema;
 
-const boughtPositionsSchema = new Schema({
-  price: {
-    type: Number,
-    required: true,
+const boughtPositionsSchema = new Schema(
+  {
+    price: {
+      type: Number,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    date: {
+      type: Date,
+      default: new Date(),
+      required: true,
+      get: (date) => dayjs(date).format("DD/MM/YYYY HH:mm:ss"),
+    },
   },
-  quantity: {
-    type: Number,
-    required: true,
-  },
-  date: {
-    type: Date,
-    required: true,
-  },
-});
+  {
+    toJSON: {
+      getters: true,
+    },
+  }
+);
 
-const soldPositionsSchema = new Schema({
-  price: {
-    type: Number,
-    required: true,
+const soldPositionsSchema = new Schema(
+  {
+    price: {
+      type: Number,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    date: {
+      type: Date,
+      default: new Date(),
+      required: true,
+      get: (date) => dayjs(date).format("DD/MM/YYYY HH:mm:ss"),
+    },
   },
-  quantity: {
-    type: Number,
-    required: true,
-  },
-  date: {
-    type: Date,
-    required: true,
-  },
-});
+  {
+    toJSON: {
+      getters: true,
+    },
+  }
+);
 
 const cryptoSchema = new Schema({
   name: {

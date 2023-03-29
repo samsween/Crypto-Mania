@@ -1,13 +1,15 @@
 const router = require("express").Router();
-const {
-  getHistoricalData,
-  getMarketData,
-} = require("../../controller/marketController");
-const {
-  marketCache,
-  historicalCryptoCache,
-} = require("../../middleware/cryptoCache");
+const marketController = require("../../controller/marketController");
+const cryptoMiddleware = require("../../middleware/cryptoCache");
 
-router.get("/market", marketCache, getMarketData);
+router.get(
+  "/market",
+  cryptoMiddleware.marketCache,
+  marketController.getMarketData
+);
 
-router.get("/historical", historicalCryptoCache, getHistoricalData);
+router.get(
+  "/historical",
+  cryptoMiddleware.historicalCryptoCache,
+  marketController.getHistoricalData
+);

@@ -50,4 +50,9 @@ module.exports = {
       res.status(500).json({ error: "Server error" });
     }
   },
+  auth: async (req, res) => {
+    await User.findById(req.user.id)
+      .select("username money")
+      .then((user) => res.json(user));
+  },
 };

@@ -10,8 +10,8 @@ import {
 import Market from "./pages/market";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthContextProvider } from "./context/authContext";
-import { MainLayout } from "./shared/mainLayout";
 import Login from "./pages/login";
+import MainLayout from "./components/mainlayout";
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter(

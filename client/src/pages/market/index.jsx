@@ -8,9 +8,7 @@ const Market = () => {
         res.json()
       );
     },
-    {
-      refetchInterval: 1000,
-    }
+
   );
   return (
     <div>

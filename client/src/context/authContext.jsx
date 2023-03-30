@@ -1,4 +1,4 @@
-const { createContext, useContext, useState } = require("react");
+import { createContext, useContext, useState } from "react";
 import { useQuery } from "react-query";
 
 const AuthContext = createContext({});
@@ -8,12 +8,19 @@ export const AuthContextProvider = ({ children }) => {
   const { error, data, isLoading } = useQuery(
     "auth",
     () => {
-      return fetch("http://localhost:3000/api/user/auth").then((res) =>
-        res.json()
-      );
+      return fetch("http://localhost:3000/api/user/auth")
+        .then((res) => res.json())
+        .catch((err) => {
+          console.log(err);
+          return null;
+        });
     },
     {
-      onSuccess: (data) => setUser(data),
+      onSuccess: (data) => {
+        if (!data.message) {
+          setUser(data);
+        }
+      },
       onError: (error) => setUser(null),
     }
   );

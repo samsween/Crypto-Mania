@@ -2,11 +2,7 @@ const router = require("express").Router();
 const marketController = require("../../controller/marketController");
 const cryptoMiddleware = require("../../middleware/cryptoCache");
 
-router.get(
-  "/market",
-  cryptoMiddleware.marketCache,
-  marketController.getMarketData
-);
+router.get("/", cryptoMiddleware.marketCache, marketController.getMarketData);
 
 router.get(
   "/historical",

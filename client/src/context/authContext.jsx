@@ -8,12 +8,9 @@ export const AuthContextProvider = ({ children }) => {
   const { error, data, isLoading } = useQuery(
     "auth",
     () => {
-      return fetch("http://localhost:3000/api/user/auth")
-        .then((res) => res.json())
-        .catch((err) => {
-          console.log(err);
-          return null;
-        });
+      return fetch("http://localhost:3000/api/user/auth", {
+        credentials: "include",
+      }).then((res) => res.json());
     },
     {
       onSuccess: (data) => {

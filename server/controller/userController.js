@@ -24,7 +24,7 @@ module.exports = {
         )
         .json({ username: newUser.username, money: newUser.money });
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: "Server error" });
     }
   },
   login: async (req, res) => {
@@ -47,7 +47,7 @@ module.exports = {
         })
         .json({ username: user.username, money: user.money });
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: "Server error" });
     }
   },
 };

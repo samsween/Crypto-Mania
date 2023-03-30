@@ -30,14 +30,14 @@ module.exports = {
       );
       const data = await response.data;
       if (!data.prices) {
-        return res.status(400).json({ message: "Error fetching coin data" });
+        return res.status(400).json({ error: "Error fetching coin data" });
       }
       const sortedData = formatData(data);
       setHistoricalCryptoCache(id, days, sortedData);
       res.json(sortedData);
     } catch (err) {
       console.log(err);
-      res.status(500).json({ message: "An error occured" });
+      res.status(500).json({ error: "An error occured" });
     }
   },
   getMarketData: async (req, res) => {
@@ -47,12 +47,12 @@ module.exports = {
       );
       const data = await response.data;
       if (!data.length) {
-        return res.status(400).json({ message: "Error fetching market data" });
+        return res.status(400).json({ error: "Error fetching market data" });
       }
       setMarketCache(data);
       res.json(data);
     } catch (err) {
-      res.status(500).json({ message: "An error occured" });
+      res.status(500).json({ error: "An error occured" });
     }
   },
 };

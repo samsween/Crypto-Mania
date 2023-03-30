@@ -52,6 +52,6 @@ module.exports = {
   auth: async (req, res) => {
     await User.findById(req.user.id)
       .select("username money")
-      .then((user) => res.json({ user: user }));
+      .then((user) => res.json( user ));
   },
 };

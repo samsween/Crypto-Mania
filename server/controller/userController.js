@@ -22,7 +22,7 @@ module.exports = {
           signJwt({ id: newUser._id, username: newUser.username }),
           { httpOnly: false, sameSite: "none", secure: false }
         )
-        .json({ username: newUser.username, money: newUser.money });
+        .json({ user: { username: newUser.username, money: newUser.money } });
     } catch (err) {
       res.status(500).json({ error: "Server error" });
     }
@@ -45,7 +45,7 @@ module.exports = {
           sameSite: "none",
           secure: false,
         })
-        .json({ username: user.username, money: user.money });
+        .json({ user: { username: user.username, money: user.money } });
     } catch (err) {
       res.status(500).json({ error: "Server error" });
     }
@@ -53,6 +53,6 @@ module.exports = {
   auth: async (req, res) => {
     await User.findById(req.user.id)
       .select("username money")
-      .then((user) => res.json(user));
+      .then((user) => res.json({ user }));
   },
 };

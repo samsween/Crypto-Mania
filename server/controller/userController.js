@@ -20,7 +20,7 @@ module.exports = {
         .cookie(
           "token",
           signJwt({ id: newUser._id, username: newUser.username }),
-          { httpOnly: false, sameSite: "none", secure: false }
+          { httpOnly: false, secure: false }
         )
         .json({ user: { username: newUser.username, money: newUser.money } });
     } catch (err) {
@@ -42,7 +42,6 @@ module.exports = {
         .status(201)
         .cookie("token", signJwt({ id: user._id, username: user.username }), {
           httpOnly: false,
-          sameSite: "none",
           secure: false,
         })
         .json({ user: { username: user.username, money: user.money } });
@@ -53,6 +52,6 @@ module.exports = {
   auth: async (req, res) => {
     await User.findById(req.user.id)
       .select("username money")
-      .then((user) => res.json({ user }));
+      .then((user) => res.json({ user: user }));
   },
 };

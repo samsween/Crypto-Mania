@@ -49,9 +49,12 @@ module.exports = {
       res.status(500).json({ error: "Server error" });
     }
   },
+  logout: async (req, res) => {
+    res.clearCookie("token").json({ message: "Logged out" });
+  },
   auth: async (req, res) => {
     await User.findById(req.user.id)
       .select("username money")
-      .then((user) => res.json( user ));
+      .then((user) => res.json(user));
   },
 };

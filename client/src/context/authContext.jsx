@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { useQuery } from "react-query";
-
+import auth from "../utils/authService";
 const AuthContext = createContext({});
 
 export const AuthContextProvider = ({ children }) => {
@@ -8,11 +8,10 @@ export const AuthContextProvider = ({ children }) => {
   const { error, data, isLoading } = useQuery(
     "auth",
     () => {
-      return fetch("http://localhost:3000/api/user/auth", {
-        credentials: "include",
-      }).then((res) => res.json());
+      return auth.auth();
     },
     {
+      retry: false,
       onSuccess: (data) => {
         if (!data.message) {
           setUser(data);

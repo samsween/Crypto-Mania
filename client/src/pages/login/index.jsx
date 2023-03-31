@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useUser } from "../../context/authContext";
+import authService from "../../utils/authService";
 
 // Animate background gradient
 
@@ -19,30 +20,17 @@ const Login = () => {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    await fetch("http://localhost:3000/api/user/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    })
-      .then((res) => res.json())
+    await authService
+      .login({ username, password })
       .then((data) => {
-        console.log(data);
         if (data.user) {
-          console.log(data);
           setUser(data.user);
-          navigate("/");
-          return;
+          return navigate("/");
         }
         setError(data.error);
       })
       .catch((err) => {
-        console.log(err);
+        setError("Something went wrong");
       });
   };
   if (user) {

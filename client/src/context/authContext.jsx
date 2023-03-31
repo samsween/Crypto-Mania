@@ -20,7 +20,6 @@ export const AuthContextProvider = ({ children }) => {
       onError: (error) => setUser(null),
     }
   );
-  if (isLoading) return <div>Loading...</div>;
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       {children}

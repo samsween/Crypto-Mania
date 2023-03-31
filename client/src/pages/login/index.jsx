@@ -39,7 +39,7 @@ const Login = () => {
           navigate("/");
           return;
         }
-        setError(data.message);
+        setError(data.error);
       })
       .catch((err) => {
         console.log(err);

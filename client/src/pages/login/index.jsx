@@ -81,7 +81,7 @@ const Login = () => {
           </div>
 
           <div className="flex flex-col gap-4">
-            <Link to={"/signup"} className="text-center">
+            <Link to={"/register"} className="text-center">
               Don't have an account?{" "}
               <span className="text-orange-500 hover:underline">Sign Up</span>
             </Link>

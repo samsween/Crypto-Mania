@@ -12,12 +12,14 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthContextProvider } from "./context/authContext";
 import Login from "./pages/login";
 import MainLayout from "./components/mainlayout";
+import Register from "./pages/register";
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route element={<MainLayout />}>
         <Route path="/" element={<Market />} />
       </Route>

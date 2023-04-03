@@ -8,7 +8,7 @@ const authService = {
       });
       return res.data;
     } catch (err) {
-      throw err.response.data.msg;
+      throw err.response.data.error;
     }
   },
   login: async (user) => {
@@ -18,7 +18,7 @@ const authService = {
       });
       return res.data;
     } catch (err) {
-      throw err.response.data.msg;
+      throw err.response.data.error;
     }
   },
   logout: async () => {
@@ -28,7 +28,7 @@ const authService = {
       });
       return res.data;
     } catch (err) {
-      throw err.response.data.msg;
+      throw err.response.data.error;
     }
   },
 
@@ -39,7 +39,8 @@ const authService = {
       });
       return res.data;
     } catch (err) {
-      throw err.response.data.msg;
+
+      throw err.response.data.error;
     }
   },
 };

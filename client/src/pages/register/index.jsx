@@ -39,6 +39,7 @@ const Register = () => {
         setError(err)
       });
   };
+  if (user) navigate("/");
   return (
     <div className="w-full h-screen bg-gradient-to-br from-primary-100 to-primary-300 flex justify-center items-center">
       <motion.div

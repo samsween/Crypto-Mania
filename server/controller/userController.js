@@ -6,7 +6,7 @@ module.exports = {
     const { username, email, password } = req.body;
     const userExists = await User.findOne({ username });
     if (userExists) {
-      return res.status(400).json({ error: "Username already exists" });
+      return res.status(406).json({ error: "Username already exists" });
     }
     try {
       const newUser = new User({

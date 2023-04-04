@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { Table } from "./comonents/Table";
 import { CoinData } from "./comonents/CoinData";
+import { ArrowRight, ArrowLeft } from "tabler-icons-react";
 import { useState, useMemo } from "react";
 const Market = () => {
   const { error, isLoading, data } = useQuery("market", () => {
@@ -8,13 +9,34 @@ const Market = () => {
   });
   const [search, setSearch] = useState("");
   const [entries, setEntries] = useState(10);
+  const [page, setPage] = useState(1);
   const setEntriesAndSearch = useMemo(() => {
     return data
       ?.filter((coin) => {
         return coin.name.toLowerCase().includes(search.toLowerCase());
       })
-      .slice(0, entries);
-  }, [search, entries, data]);
+      .slice((page - 1) * entries, page * entries);
+  }, [search, entries, data, page]);
+  const totalPages = useMemo(() => {
+    return Math.ceil(data?.length / entries);
+  }, [data, entries]);
+
+  const onEntriesChange = (e) => {
+    setEntries(e.target.value);
+    setPage(1);
+  };
+
+  const goForward = () => {
+    if (page < totalPages) {
+      setPage((prev) => prev + 1);
+    }
+  };
+  const goBack = () => {
+    if (page > 1) {
+      setPage((prev) => prev - 1);
+    }
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error...</div>;
   return (
@@ -28,7 +50,7 @@ const Market = () => {
             Show
             <select
               className="text-gray-300 w-full rounded-md bg-primary-200 focus:outline-none px-2"
-              onChange={(e) => setEntries(e.target.value)}
+              onChange={onEntriesChange}
             >
               <option value="10">10</option>
               <option value="20">20</option>
@@ -53,6 +75,20 @@ const Market = () => {
             return <CoinData coin={coin} index={index} key={coin.id} />;
           })}
         </Table>
+        <div className="w-full flex justify-between py-2">
+          <button
+            className="bg-primary-100 text-orange-500 px-4 py-2 rounded-md"
+            onClick={goBack}
+          >
+            <ArrowLeft />
+          </button>
+          <button
+            className="bg-primary-100 text-orange-500 px-4 py-2 rounded-md"
+            onClick={goForward}
+          >
+            <ArrowRight />
+          </button>
+        </div>
       </div>
     </div>
   );

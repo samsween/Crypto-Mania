@@ -1,14 +1,59 @@
 import { useQuery } from "react-query";
-
+import { Table } from "./comonents/Table";
+import { CoinData } from "./comonents/CoinData";
+import { useState, useMemo } from "react";
 const Market = () => {
   const { error, isLoading, data } = useQuery("market", () => {
     return fetch("http://localhost:3000/api/market").then((res) => res.json());
   });
+  const [search, setSearch] = useState("");
+  const [entries, setEntries] = useState(10);
+  const setEntriesAndSearch = useMemo(() => {
+    return data
+      ?.filter((coin) => {
+        return coin.name.toLowerCase().includes(search.toLowerCase());
+      })
+      .slice(0, entries);
+  }, [search, entries, data]);
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error...</div>;
   return (
-    <div>
-      <h1>Market</h1>
-      {error && <div>Something went wrong</div>}
-      {isLoading && <div>Loading...</div>}
+    <div className="w-full h-full flex flex-col gap-10 items-center">
+      <div className="flex flex-col gap-8 pt-8 w-full px-48">
+        <h1 className="text-2xl text-white text-center">Exchange</h1>
+      </div>
+      <div>
+        <div className="w-full flex justify-between items-center py-8">
+          <div className="flex gap-4 text-gray-200 items-center">
+            Show
+            <select
+              className="text-gray-300 w-full rounded-md bg-primary-200 focus:outline-none px-2"
+              onChange={(e) => setEntries(e.target.value)}
+            >
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            entries
+          </div>
+          <div>
+            <input
+              onChange={(e) => setSearch(e.target.value)}
+              type="text"
+              id="search"
+              placeholder="Search"
+              name="search"
+              className="w-full text-gray-300 focus:outline-none h-10 py-1 bg-transparent placeholder:text-gray-600 border-b border-primary-200"
+            />
+          </div>
+        </div>
+        <Table>
+          {setEntriesAndSearch.map((coin, index) => {
+            return <CoinData coin={coin} index={index} key={coin.id} />;
+          })}
+        </Table>
+      </div>
     </div>
   );
 };

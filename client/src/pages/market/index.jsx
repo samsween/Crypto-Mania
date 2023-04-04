@@ -19,11 +19,11 @@ const Market = () => {
   if (error) return <div>Error...</div>;
   return (
     <div className="w-full h-full flex flex-col gap-10 items-center">
-      <div className="flex flex-col gap-8 pt-8 w-full px-48">
+      <div className="flex flex-col gap-8 pt-4 w-full ">
         <h1 className="text-2xl text-white text-center">Exchange</h1>
       </div>
       <div>
-        <div className="w-full flex justify-between items-center py-8">
+        <div className="w-full flex justify-between items-center py-4">
           <div className="flex gap-4 text-gray-200 items-center">
             Show
             <select
@@ -42,9 +42,9 @@ const Market = () => {
               onChange={(e) => setSearch(e.target.value)}
               type="text"
               id="search"
-              placeholder="Search"
+              placeholder="Search..."
               name="search"
-              className="w-full text-gray-300 focus:outline-none h-10 py-1 bg-transparent placeholder:text-gray-600 border-b border-primary-200"
+              className="w-full text-gray-300 focus:outline-none h-10 py-1 bg-transparent placeholder:text-gray-600 border-b  border-primary-200"
             />
           </div>
         </div>

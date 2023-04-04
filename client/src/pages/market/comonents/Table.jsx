@@ -1,6 +1,6 @@
 export const Table = ({ children }) => {
   return (
-    <table className=" table-auto text-gray-300 text-xs">
+    <table className=" table-auto text-gray-300 text-sm">
       <thead>
         <tr>
           <th className="px-4 py-2">Name</th>

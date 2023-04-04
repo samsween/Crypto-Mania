@@ -20,12 +20,22 @@ export const CoinData = ({ coin, index }) => {
         <img src={coin.image} alt={coin.name} className="w-6 h-6" />
       </td>
 
-      <td className="border px-4 py-2">{coin.current_price}</td>
+      <td className="border px-4 py-2">
+        ${parseFloat(coin.current_price).toLocaleString()}
+      </td>
       <td className="border px-4 py-2">{coin.price_change_percentage_24h}%</td>
-      <td className="border px-4 py-2">{coin.market_cap}</td>
-      <td className="border px-4 py-2">{coin.total_volume}</td>
-      <td className="border px-4 py-2">{coin.circulating_supply}</td>
-      <td className="border px-4 py-2">{coin.total_supply}</td>
+      <td className="border hidden sm:table-cell px-4 py-2">
+        ${parseFloat(coin.market_cap).toLocaleString()}
+      </td>
+      <td className="border hidden md:table-cell px-4 py-2">
+        {coin.total_volume}
+      </td>
+      <td className="border hidden md:table-cell px-4 py-2">
+        {coin.circulating_supply}
+      </td>
+      <td className="border hidden xl:table-cell px-4 py-2">
+        {coin.total_supply}
+      </td>
     </motion.tr>
   );
 };

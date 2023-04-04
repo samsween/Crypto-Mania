@@ -44,7 +44,7 @@ const Market = () => {
       <div className="flex flex-col gap-8 pt-4 w-full ">
         <h1 className="text-2xl text-white text-center">Exchange</h1>
       </div>
-      <div>
+      <div className="w-[90%] m-auto flex justify-center flex-col">
         <div className="w-full flex justify-between items-center py-4">
           <div className="flex gap-4 text-gray-200 items-center">
             Show

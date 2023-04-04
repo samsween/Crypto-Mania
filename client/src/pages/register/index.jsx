@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useUser } from "../../context/authContext";
 import authService from "../../utils/authService";
@@ -8,15 +8,38 @@ import {
   validatePassword,
   validateUsername,
 } from "./utils/validateInputs";
+import { RegisterInput } from "./components/RegisterInput";
+import { useState } from "react";
 
 const Register = () => {
   const { user, setUser } = useUser();
+  const navigate = useNavigate();
   const username = useInput("", validateUsername);
   const password = useInput("", validatePassword);
   const email = useInput("", validateEmail);
+  const [error, setError] = useState("");
   const onSubmit = (e) => {
     e.preventDefault();
+    authService
+      .register({
+        username: username.value,
+        password: password.value,
+        email: email.value,
+      })
+      .then((data) => {
+       
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setUser(data.user);
+        navigate("/");
+        }
+      })
+      .catch((err) => {
+        setError(err)
+      });
   };
+  if (user) navigate("/");
   return (
     <div className="w-full h-screen bg-gradient-to-br from-primary-100 to-primary-300 flex justify-center items-center">
       <motion.div
@@ -31,62 +54,34 @@ const Register = () => {
           </h1>
 
           <div className="w-full h-full flex flex-col gap-4">
-            <div className="w-full gap-2">
-              <label htmlFor="email">Username</label>
-              <input
-                onChange={username.onChange}
-                type="text"
-                name="username"
-                id="username"
-                placeholder="username102"
-                className="w-full text-gray-300 focus:outline-none h-10 py-2 bg-transparent placeholder:text-gray-600 border-b border-primary-200"
-              />
-            </div>
-            <div className="w-full gap-2">
-              <label htmlFor="email">Email</label>
-              <input
-                type={"email"}
-                name={"email"}
-                placeholder="johnsmith@email.com"
-                id={"email"}
-                className="w-full text-gray-300 focus:outline-none h-10 py-2 bg-transparent placeholder:text-gray-600 border-b border-primary-200"
-              />
-            </div>
-
-            <div className="w-full gap-2">
-              <label htmlFor="password">Password</label>
-              <input
-                onChange={password.onChange}
-                type="password"
-                name="password"
-                placeholder="********"
-                id="password"
-                className="w-full text-gray-300 focus:outline-none h-10 py-2 bg-transparent placeholder:text-gray-600 border-b border-primary-200"
-              />
-            </div>
-            <div className="w-full gap-2">
-              <label htmlFor="password">Confirm password</label>
-              <input
-                onChange={() => {}}
-                type="password"
-                name="password"
-                placeholder="********"
-                id="password"
-                className="w-full text-gray-300 focus:outline-none h-10 py-2 bg-transparent placeholder:text-gray-600 border-b border-primary-200"
-              />
-            </div>
+            <RegisterInput
+              id={"username"}
+              label={"Username"}
+              placeholder={"username102"}
+              type={"text"}
+              {...username}
+            />
+            <RegisterInput
+              id={"email"}
+              label={"Email"}
+              placeholder={"johnsmith@email.com"}
+              type={"email"}
+              {...email}
+            />
+            <RegisterInput
+              id={"password"}
+              label={"Password"}
+              placeholder={"********"}
+              type={"password"}
+              {...password}
+            />
           </div>
           <div>
             <button className="w-full h-10 border border-primary-200 hover:border-orange-500  duration-200 text-white rounded-md">
               Signup
             </button>
-            <p className="text-center pt-2 h-2 text-red-500">
-              {password.errors?.map((error) => (
-                <span key={error}>{error}</span>
-              ))}
-            </p>
+            {error && <div className="h-2 text-center pt-1 text-red-500">{error}</div>}
           </div>
-
           <div className="flex flex-col gap-4">
             <Link
               to={"/login"}

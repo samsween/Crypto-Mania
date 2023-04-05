@@ -1,0 +1,14 @@
+{
+  "name": "crypto-mania",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd server && npm start",
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "dev": "(cd server && npm run dev) & (cd client && npm run dev)"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

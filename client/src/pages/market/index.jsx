@@ -45,7 +45,7 @@ const Market = () => {
         <h1 className="text-2xl text-white text-center">Exchange</h1>
       </div>
       <div className="w-[90%] m-auto flex justify-center flex-col">
-        <div className="w-full flex justify-between items-center py-4">
+        <div className="w-full flex justify-between flex-col md:flex-row gap-8 items-center py-4">
           <div className="flex gap-4 text-gray-200 items-center">
             Show
             <select

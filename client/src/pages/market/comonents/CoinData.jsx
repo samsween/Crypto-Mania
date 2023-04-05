@@ -10,7 +10,7 @@ export const CoinData = ({ coin, index }) => {
       key={coin.id}
       className={index % 2 === 0 ? "bg-primary-300" : "bg-primary-100"}
     >
-      <td className="border px-4 py-2 flex justify-between">
+      <td className="border px-4 py-2 flex justify-between flex-col md:flex-row ">
         <Link to={`/market/${coin.id}`} state={{ coin: coin }}>
           <div className="flex flex-col gap-1">
             {coin.name}

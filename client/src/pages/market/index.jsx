@@ -4,11 +4,15 @@ import { CoinData } from "./comonents/CoinData";
 import { ArrowRight, ArrowLeft } from "tabler-icons-react";
 import { useState, useMemo } from "react";
 const Market = () => {
-  const { error, isLoading, data } = useQuery("market", () => {
-    return fetch("http://localhost:3000/api/market").then((res) => res.json());
-  }, {
-    refetchInterval: 1000 * 60,
-  });
+  const { error, isLoading, data } = useQuery(
+    "market",
+    () => {
+      return fetch("/api/market").then((res) => res.json());
+    },
+    {
+      refetchInterval: 1000 * 60,
+    }
+  );
   const [search, setSearch] = useState("");
   const [entries, setEntries] = useState(10);
   const [page, setPage] = useState(1);

@@ -1,9 +1,8 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3000";
 const authService = {
   register: async (user) => {
     try {
-      const res = await axios.post(baseUrl + "/api/user/register", user, {
+      const res = await axios.post("/api/user/register", user, {
         withCredentials: true,
       });
       return res.data;
@@ -13,7 +12,7 @@ const authService = {
   },
   login: async (user) => {
     try {
-      const res = await axios.post(baseUrl + "/api/user/login", user, {
+      const res = await axios.post("/api/user/login", user, {
         withCredentials: true,
       });
       return res.data;
@@ -23,7 +22,7 @@ const authService = {
   },
   logout: async () => {
     try {
-      const res = await axios.delete(baseUrl + "/api/user/logout", {
+      const res = await axios.delete("/api/user/logout", {
         withCredentials: true,
       });
       return res.data;
@@ -34,12 +33,11 @@ const authService = {
 
   auth: async () => {
     try {
-      const res = await axios.get(baseUrl + "/api/user/auth", {
+      const res = await axios.get("/api/user/auth", {
         withCredentials: true,
       });
       return res.data;
     } catch (err) {
-
       throw err.response.data.error;
     }
   },

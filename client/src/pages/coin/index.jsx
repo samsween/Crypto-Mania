@@ -1,7 +1,16 @@
+import { useQuery } from "react-query";
+import { useLocation, useParams } from "react-router-dom";
+import { Graph } from "./components/graph/Graph";
+import CryptoGraph from "./components/graph/CryptoGraph";
+
 const Coin = () => {
+  const {
+    state: { coin },
+  } = useLocation();
+  const { id } = useParams();
   return (
     <div>
-      <h1>coin</h1>
+      <CryptoGraph id={id} />
     </div>
   );
 };

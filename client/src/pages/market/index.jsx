@@ -6,6 +6,8 @@ import { useState, useMemo } from "react";
 const Market = () => {
   const { error, isLoading, data } = useQuery("market", () => {
     return fetch("http://localhost:3000/api/market").then((res) => res.json());
+  }, {
+    refetchInterval: 1000 * 60,
   });
   const [search, setSearch] = useState("");
   const [entries, setEntries] = useState(10);

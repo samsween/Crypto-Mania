@@ -39,16 +39,16 @@ export const SideMenu = () => {
               Dashboard
             </li>
           </Link>
-          <Link to={"/exchange"}>
+          <Link to={"/market"}>
             <li
               className={`text-gray-400 p-1 items-center flex gap-2 ${
-                router.pathname === "/exchange"
+                router.pathname.includes("/market")
                   ? "border border-orange-500"
                   : ""
               }`}
             >
               <CoinBitcoin className="text-orange-500" />
-              Exchange
+              Market
             </li>
           </Link>
           <Link to={"/wallet"}>

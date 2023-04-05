@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { Graph } from "./Graph";
+import { Loader } from "../../../../components/Loader";
 
 const TIMES = {
   "1D": "1",
@@ -60,7 +61,13 @@ const CryptoGraph = ({ id }) => {
         </ul>
       </div>
 
-      {isLoading ? <p>Loading...</p> : <Graph data={data[type]} />}
+      {isLoading ? (
+        <div className="w-full h-full flex justify-center items-center">
+          <Loader />
+        </div>
+      ) : (
+        <Graph data={data[type]} />
+      )}
     </div>
   );
 };

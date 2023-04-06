@@ -1,11 +1,27 @@
 import { useLocation, useParams } from "react-router-dom";
 import CryptoGraph from "./components/graph/CryptoGraph";
-
+import socket from "../../utils/socket";
+import { useEffect, useState } from "react";
+import { PriceTable } from "./components/PriceTable";
 const Coin = () => {
   const {
     state: { coin },
   } = useLocation();
+  const [price, setPrice] = useState({});
+
   const { id } = useParams();
+  useEffect(() => {
+    const onPrice = (value) => {
+      console.log(value);
+      setPrice(value);
+    };
+    socket.emit("get-price", id);
+    socket.on("price", onPrice);
+    return () => {
+      socket.off("price", onPrice);
+      socket.emit("leave-room", id);
+    };
+  }, []);
   return (
     <div className="w-full h-full">
       <div className="w-[90%] h-full flex flex-col gap-20 m-auto">
@@ -22,10 +38,15 @@ const Coin = () => {
             Sell
           </button>
         </div>
-        <div className=" w-full bg-primary-100">
-          {/* 
-            Add table with real time coin data
-         */}
+        <div className=" w-full bg-primary-100 p-10 text-gray-300">
+          <div className="px-10 flex justify-between m-auto text-xl">
+            {price.data && (
+              <>
+                <PriceTable data={price?.data?.slice(0, 4)} />
+                <PriceTable data={price?.data?.slice(4)} />
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -25,7 +25,7 @@ const CryptoGraph = ({ id }) => {
     );
   });
   return (
-    <div className="relative">
+    <div className="relative w-full h-fq">
       <div className="absoulte top-0 left-0 flex px-2 w-full  justify-between">
         <ul className="flex gap-4">
           {Object.keys(PRICES).map((key) => {
@@ -62,7 +62,7 @@ const CryptoGraph = ({ id }) => {
       </div>
 
       {isLoading ? (
-        <div className="w-full h-full flex justify-center items-center">
+        <div className="w-full h-[250px] flex justify-center items-center">
           <Loader />
         </div>
       ) : (

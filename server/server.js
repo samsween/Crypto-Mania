@@ -1,10 +1,18 @@
 const express = require("express");
 const app = express();
+const puppeteer = require("puppeteer");
+const http = require("http").createServer(app);
 const routes = require("./routes");
 const connect = require("./config/mongoConnection");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require("path");
+const initIo = require("./socket/initIo");
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "http://localhost:3001",
+  },
+});
 const PORT = process.env.PORT || 3000;
 app.use(
   cors({
@@ -24,8 +32,20 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-connect().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+connect()
+  .then(async () => {
+    const browser = await puppeteer.launch({
+      headless: true,
+      defaultViewport: {
+        width: 1280,
+        height: 1024,
+      },
+    });
+    return browser;
+  })
+  .then(async (browser) => {
+    await initIo(io, browser);
+    http.listen(3000, () => {
+      console.log("listening on *:3000");
+    });
   });
-});

@@ -37,6 +37,7 @@ const CryptoGraph = ({ id }) => {
                     : "bg-primary-100 text-gray-300"
                 }`}
                 onClick={() => setType(key)}
+                key={key}
               >
                 {key}
               </li>
@@ -53,6 +54,7 @@ const CryptoGraph = ({ id }) => {
                     : "bg-primary-100 text-gray-300"
                 }`}
                 onClick={() => setTime(TIMES[key])}
+                key={key}
               >
                 {key}
               </li>

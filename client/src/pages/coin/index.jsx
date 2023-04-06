@@ -4,6 +4,7 @@ import socket from "../../utils/socket";
 import { useEffect, useState } from "react";
 import { PriceTable } from "./components/PriceTable";
 import { PriceTableSkeleton } from "./components/PriceTableSekeleton";
+import { AnimatePrice } from "./components/AnimatePrice";
 const Coin = () => {
   const {
     state: { coin },
@@ -26,9 +27,16 @@ const Coin = () => {
   return (
     <div className="w-full h-full">
       <div className="w-[90%] h-full flex flex-col gap-20 m-auto">
-        <div className="pt-20 flex justify-center items-center w-full gap-8">
-          <h1 className="text-3xl font-bold text-orange-500">{coin.name}</h1>
-          <img src={coin.image} alt={coin.name} className="w-10" />
+        <div className="pt-20 flex justify-between items-center w-full">
+          <div className="flex gap-8 items-center">
+            <h1 className="text-3xl font-bold text-orange-500">{coin.name}</h1>
+            <img src={coin.image} alt={coin.name} className="w-10" />
+          </div>
+          {price?.price && (
+            <div className="text-orange-500 text-3xl">
+              $<AnimatePrice price={parseFloat(price.price)} />
+            </div>
+          )}
         </div>
         <CryptoGraph id={id} />
         <div className="flex w-ful gap-8">

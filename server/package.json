@@ -21,7 +21,9 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
-    "node-cache": "^5.1.2"
+    "node-cache": "^5.1.2",
+    "puppeteer": "^19.8.3",
+    "socket.io": "^4.6.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

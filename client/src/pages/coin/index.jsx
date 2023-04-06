@@ -3,6 +3,7 @@ import CryptoGraph from "./components/graph/CryptoGraph";
 import socket from "../../utils/socket";
 import { useEffect, useState } from "react";
 import { PriceTable } from "./components/PriceTable";
+import { PriceTableSkeleton } from "./components/PriceTableSekeleton";
 const Coin = () => {
   const {
     state: { coin },
@@ -40,10 +41,15 @@ const Coin = () => {
         </div>
         <div className=" w-full bg-primary-100 p-10 text-gray-300">
           <div className="px-10 flex justify-between m-auto text-xl">
-            {price.data && (
+            {price.data ? (
               <>
                 <PriceTable data={price?.data?.slice(0, 4)} />
                 <PriceTable data={price?.data?.slice(4)} />
+              </>
+            ) : (
+              <>
+                <PriceTableSkeleton numRows={4} />
+                <PriceTableSkeleton numRows={4} />
               </>
             )}
           </div>

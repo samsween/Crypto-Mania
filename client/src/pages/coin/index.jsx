@@ -5,12 +5,15 @@ import { useEffect, useState } from "react";
 import { PriceTable } from "./components/PriceTable";
 import { PriceTableSkeleton } from "./components/PriceTableSekeleton";
 import { AnimatePrice } from "./components/AnimatePrice";
+import { Modal } from "../../components/Modal";
+import { BuyForm } from "./components/BuyForm";
 const Coin = () => {
+  const [price, setPrice] = useState({});
+  const [open, setOpen] = useState(false);
+
   const {
     state: { coin },
   } = useLocation();
-  const [price, setPrice] = useState({});
-
   const { id } = useParams();
   useEffect(() => {
     const onPrice = (value) => {
@@ -40,7 +43,12 @@ const Coin = () => {
         </div>
         <CryptoGraph id={id} />
         <div className="flex w-ful gap-8">
-          <button className="bg-orange-500 w-full text-primary-100 py-4 rounded-md">
+          <button
+            className="bg-orange-500 w-full text-primary-100 py-4 rounded-md"
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
             Buy
           </button>
           <button className="bg-primary-100 w-full  text-orange-500  border border-orange-500 py-4 rounded-md">
@@ -63,6 +71,9 @@ const Coin = () => {
           </div>
         </div>
       </div>
+      <Modal open={open} setOpen={setOpen}>
+        <BuyForm setOpen={setOpen} coin={coin} currentPrice={price?.price} />
+      </Modal>
     </div>
   );
 };

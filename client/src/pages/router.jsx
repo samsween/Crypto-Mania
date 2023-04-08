@@ -9,6 +9,7 @@ import Register from "./register";
 import Market from "./market";
 import Coin from "./coin";
 import Home from "./home";
+import Wallet from "./wallet";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
         <Route path="/" element={<Home />} />
         <Route path="/market" element={<Market />} />
         <Route path="/market/:id" element={<Coin />} />
+        <Route path="/wallet" element={<Wallet />} />
       </Route>
     </Route>
   )

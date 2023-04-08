@@ -13,11 +13,8 @@ export const AuthContextProvider = ({ children }) => {
     {
       retry: false,
       onSuccess: (data) => {
-        if (!data.message) {
           setUser(data);
-        }
       },
-      onError: (error) => setUser(null),
     }
   );
   return (

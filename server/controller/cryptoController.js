@@ -1,11 +1,30 @@
+const { setMarketCache, cache } = require("../middleware/cryptoCache");
 const Crypto = require("../models/Crypto");
 const User = require("../models/User");
-
 module.exports = {
   getCrypto: (req, res) => {
     Crypto.find({ user: req.user.id })
-      .then((crypto) => {
-        res.json(crypto);
+      .then(async (crypto) => {
+        let data;
+        if (cache.get("marketData")) {
+          data = cache.get("marketData");
+        } else {
+          const res = await fetch(
+            "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+          );
+          data = await res.json();
+          setMarketCache(data);
+        }
+       const cryptoWithPrice = crypto.map((crypto) => {
+          const cryptoData = data.find((cryptoData) => {
+            return cryptoData.symbol === crypto.symbol;
+          });
+          return {
+            ...crypto._doc,
+            current_price: cryptoData.current_price,
+          };
+        });
+        return res.json(cryptoWithPrice);
       })
       .catch((err) => {
         return res.status(500).json({ error: "Server error" });

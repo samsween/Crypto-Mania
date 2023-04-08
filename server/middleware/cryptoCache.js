@@ -40,4 +40,5 @@ module.exports = {
   setMarketCache,
   historicalCryptoCache,
   setHistoricalCryptoCache,
+  cache
 };

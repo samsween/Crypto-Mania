@@ -1,4 +1,5 @@
 const { setMarketCache, cache } = require("../middleware/cryptoCache");
+const {default: axios} = require("axios");
 const Crypto = require("../models/Crypto");
 const User = require("../models/User");
 module.exports = {
@@ -9,10 +10,10 @@ module.exports = {
         if (cache.get("marketData")) {
           data = cache.get("marketData");
         } else {
-          const res = await fetch(
+          const res = await axios.get(
             "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
           );
-          data = await res.json();
+          data = res.data;
           setMarketCache(data);
         }
        const cryptoWithPrice = crypto.map((crypto) => {
@@ -27,6 +28,7 @@ module.exports = {
         return res.json(cryptoWithPrice);
       })
       .catch((err) => {
+        console.log(err);
         return res.status(500).json({ error: "Server error" });
       });
   },

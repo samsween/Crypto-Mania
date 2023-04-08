@@ -20,6 +20,7 @@ const Register = () => {
   const [error, setError] = useState("");
   const onSubmit = (e) => {
     e.preventDefault();
+    if (!username.value || !password.value || !email.value) return;
     authService
       .register({
         username: username.value,

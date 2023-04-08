@@ -39,6 +39,7 @@ export const BuyForm = ({ currentPrice, coin, setOpen }) => {
         name: coin.name,
         symbol: coin.symbol,
         quantity: total,
+        image: coin.image,
         price: amount,
       }),
     })

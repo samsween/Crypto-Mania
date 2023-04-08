@@ -59,6 +59,9 @@ const cryptoSchema = new Schema({
     type: String,
     required: true,
   },
+  image: {
+    type: String,
+  },
   boughtPositions: {
     type: [boughtPositionsSchema],
     default: [],

@@ -12,7 +12,7 @@ module.exports = {
       });
   },
   addCrypto: ({ body, user }, res) => {
-    const { name, symbol, price, quantity } = body;
+    const { name, symbol, price, quantity, image } = body;
     const userId = user.id;
     User.findById(userId)
       .then((user) => {
@@ -26,6 +26,7 @@ module.exports = {
               symbol,
               price,
               quantity,
+              image,
               boughtPositions: [{ price, quantity, date: new Date() }],
               total: parseFloat(quantity),
               user: userId,

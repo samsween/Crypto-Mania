@@ -23,14 +23,11 @@ const Login = () => {
     await authService
       .login({ username, password })
       .then((data) => {
-        if (data.user) {
-          setUser(data.user);
-          return navigate("/");
-        }
-        setError(data.error);
+        setUser(data.user);
+        navigate("/");
       })
       .catch((err) => {
-        setError("Something went wrong");
+        setError(err);
       });
   };
   if (user) {

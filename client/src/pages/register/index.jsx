@@ -27,16 +27,11 @@ const Register = () => {
         email: email.value,
       })
       .then((data) => {
-       
-        if (data.error) {
-          setError(data.error);
-        } else {
-          setUser(data.user);
+        setUser(data.user);
         navigate("/");
-        }
       })
       .catch((err) => {
-        setError(err)
+        setError(err);
       });
   };
   if (user) navigate("/");
@@ -80,7 +75,9 @@ const Register = () => {
             <button className="w-full h-10 border border-primary-200 hover:border-orange-500  duration-200 text-white rounded-md">
               Signup
             </button>
-            {error && <div className="h-2 text-center pt-1 text-red-500">{error}</div>}
+            {error && (
+              <div className="h-2 text-center pt-1 text-red-500">{error}</div>
+            )}
           </div>
           <div className="flex flex-col gap-4">
             <Link

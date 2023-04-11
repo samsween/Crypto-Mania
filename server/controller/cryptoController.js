@@ -15,9 +15,11 @@ module.exports = {
           data = await res.json();
           setMarketCache(data);
         }
-       const cryptoWithPrice = crypto.map((crypto) => {
+        const cryptoWithPrice = crypto.map((crypto) => {
           const cryptoData = data.find((cryptoData) => {
-            return cryptoData.symbol === crypto.symbol;
+            return (
+              cryptoData.symbol.toLowerCase() === crypto.symbol.toLowerCase()
+            );
           });
           return {
             ...crypto._doc,

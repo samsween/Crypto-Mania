@@ -1,11 +1,12 @@
 import { createContext, useContext, useState } from "react";
 import { useQuery } from "react-query";
 import auth from "../utils/authService";
+import { LoadingPage } from "../components/LoadingPage";
 const AuthContext = createContext({});
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  useQuery(
+  const {isLoading} = useQuery(
     "auth",
     () => {
       return auth.auth();
@@ -17,9 +18,12 @@ export const AuthContextProvider = ({ children }) => {
       },
     }
   );
+  if (isLoading) return <LoadingPage />;
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser}}>
+      <div>
       {children}
+      </div>
     </AuthContext.Provider>
   );
 };

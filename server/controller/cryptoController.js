@@ -16,9 +16,11 @@ module.exports = {
           data = res.data;
           setMarketCache(data);
         }
-       const cryptoWithPrice = crypto.map((crypto) => {
+        const cryptoWithPrice = crypto.map((crypto) => {
           const cryptoData = data.find((cryptoData) => {
-            return cryptoData.symbol === crypto.symbol;
+            return (
+              cryptoData.symbol.toLowerCase() === crypto.symbol.toLowerCase()
+            );
           });
           return {
             ...crypto._doc,
@@ -59,8 +61,8 @@ module.exports = {
                   },
                   { new: true }
                 )
-                .then((user) => {
-                  return res.json(crypto);
+                .then(() => {
+                  return res.json({ money: user.money - parseFloat(price) });
                 });
             });
           } else {
@@ -82,8 +84,8 @@ module.exports = {
                     },
                     { new: true }
                   )
-                  .then((user) => {
-                    res.json(crypto);
+                  .then(() => {
+                    res.json({ money: user.money - parseFloat(price) });
                   });
               });
           }

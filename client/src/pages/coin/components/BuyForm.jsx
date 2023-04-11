@@ -45,13 +45,11 @@ export const BuyForm = ({ currentPrice, coin, setOpen }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.crypto) {
-          setUser({
-            ...user,
-            money: data.money,
-          });
-          setOpen(false);
-        }
+        setUser({
+          ...user,
+          money: data.money,
+        });
+        setOpen(false);
       });
   };
   return (

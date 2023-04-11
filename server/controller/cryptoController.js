@@ -59,8 +59,8 @@ module.exports = {
                   },
                   { new: true }
                 )
-                .then((user) => {
-                  return res.json(crypto);
+                .then(() => {
+                  return res.json({ money: user.money - parseFloat(price) });
                 });
             });
           } else {
@@ -82,8 +82,8 @@ module.exports = {
                     },
                     { new: true }
                   )
-                  .then((user) => {
-                    res.json(crypto);
+                  .then(() => {
+                    res.json({ money: user.money - parseFloat(price) });
                   });
               });
           }

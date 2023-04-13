@@ -1,5 +1,5 @@
 const { setMarketCache, cache } = require("../middleware/cryptoCache");
-const {default: axios} = require("axios");
+const { default: axios } = require("axios");
 const Crypto = require("../models/Crypto");
 const User = require("../models/User");
 module.exports = {
@@ -25,6 +25,7 @@ module.exports = {
           return {
             ...crypto._doc,
             current_price: cryptoData.current_price,
+            crypto_id: cryptoData.id,
           };
         });
         return res.json(cryptoWithPrice);

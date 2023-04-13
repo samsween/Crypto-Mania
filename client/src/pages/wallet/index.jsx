@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { useQuery } from "react-query";
-
+import { Modal } from "../../components/Modal";
+import { SellForm } from "./components/SellForm";
 const Wallet = () => {
+  const [currentSelected, setCurrentSelected] = useState({});
+  const [open, setOpen] = useState(false);
   const { data, isLoading } = useQuery("wallet", () =>
     fetch("/api/crypto").then((res) => res.json())
   );
@@ -16,19 +20,43 @@ const Wallet = () => {
               <th className="w-1/4">Name</th>
               <th className="w-1/4">Symbol</th>
               <th className="w-1/4">Amount</th>
+              <th>Value</th>
+              <th className="w-1/4">Action</th>
             </tr>
           </thead>
           <tbody>
             {data.map((crypto) => (
-              <tr className=" border text-xl text-orange-500">
+              <tr className=" border text-xl text-orange-500" key={crypto._id}>
                 <td>{crypto.name} </td>
                 <td>{crypto.symbol}</td>
                 <td>{crypto.total}</td>
+                <td>
+                  $
+                  {(
+                    parseFloat(crypto.total) * parseFloat(crypto.current_price)
+                  ).toFixed(1)}
+                </td>
+                <td>
+                  <button
+                    onClick={() => {
+                      setCurrentSelected(() => ({
+                        symbol: crypto.symbol,
+                        id: crypto.id,
+                      }));
+                      setOpen(true);
+                    }}
+                  >
+                    Sell
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <Modal open={open} setOpen={setOpen}>
+        <SellForm {...currentSelected} />
+      </Modal>
     </div>
   );
 };

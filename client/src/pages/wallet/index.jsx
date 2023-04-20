@@ -8,7 +8,7 @@ const Wallet = () => {
   const { data, isLoading } = useQuery("wallet", () =>
     fetch("/api/crypto").then((res) => res.json())
   );
-  console.log(data);
+
   if (isLoading) return <h1>Loading...</h1>;
   return (
     <div className="w-full h-full flex flex-col justify-center gap-20">
@@ -41,7 +41,7 @@ const Wallet = () => {
                     onClick={() => {
                       setCurrentSelected(() => ({
                         symbol: crypto.symbol,
-                        id: crypto.id,
+                        id: crypto.crypto_id,
                       }));
                       setOpen(true);
                     }}

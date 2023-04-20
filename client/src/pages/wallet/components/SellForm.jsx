@@ -4,18 +4,17 @@ import { Loader } from "../../../components/Loader";
 
 export const SellForm = ({ id, symbol }) => {
   const [price, setPrice] = useState(null);
-  // useEffect(() => {
-  //   const onPrice = (value) => {
-  //     console.log(value);
-  //     setPrice(value.price);
-  //   };
-  //   socket.emit("get-price", id);
-  //   socket.on("price", onPrice);
-  //   return () => {
-  //     socket.off("price", onPrice);
-  //     socket.emit("leave-room", id);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const onPrice = (value) => {
+      setPrice(value.price);
+    };
+    socket.emit("get-price", id);
+    socket.on("price", onPrice);
+    return () => {
+      socket.off("price", onPrice);
+      socket.emit("leave-room", id);
+    };
+  }, []);
   return (
     <div className="w-full h-full bg-primary-100 p-10 text-gray-300">
       <form>

@@ -42,6 +42,7 @@ const Wallet = () => {
                       setCurrentSelected(() => ({
                         symbol: crypto.symbol,
                         id: crypto.crypto_id,
+                        total: crypto.total,
                       }));
                       setOpen(true);
                     }}

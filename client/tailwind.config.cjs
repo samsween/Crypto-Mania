@@ -4,13 +4,13 @@ module.exports = {
   theme: {
     extend: {
       keyframes: {
-        "change-red": {
-          "0%, 100%": { color: "" },
-          "50%": { color: "#25282C" },
+        changeRed: {
+          "0%, 100%": { color: "inherent" },
+          "50%": { color: "#FF0000" },
         },
-        "change-green": {
-          "0%, 100%": { color: "#131519" },
-          "50%": { color: "#191A1E" },
+        changeGreen: {
+          "0%, 100%": { color: "inherent" },
+          "50%": { color: "#00FF00" },
         },
       },
       colors: {
@@ -21,8 +21,8 @@ module.exports = {
         },
       },
       animation: {
-        "animate-change-red": "change-red 1s ease-in-out",
-        "animate-change-green": "change-green 1s ease-in-out",
+        change_red: "changeRed 1s ease-in-out",
+        change_green: "changeGreen 1s ease-in-out",
       },
     },
   },

@@ -34,8 +34,8 @@ export const AnimatePrice = ({ price }) => {
   const [isHigher, setIsHigher] = useState("");
   useEffect(() => {
     price < from
-      ? setIsHigher("animate-change-red-animation")
-      : setIsHigher("animate-change-green-animation");
+      ? setIsHigher("animate-change-red")
+      : setIsHigher("animate-change-green");
   }, [price]);
   if (isNaN(price)) return null;
   return (

@@ -4,7 +4,7 @@ import socket from "../../utils/socket";
 import { useEffect, useState } from "react";
 import { PriceTable } from "./components/PriceTable";
 import { PriceTableSkeleton } from "./components/PriceTableSekeleton";
-import { AnimatePrice } from "./components/AnimatePrice";
+import { AnimatePrice } from "../../components/AnimatePrice";
 import { Modal } from "../../components/Modal";
 import { BuyForm } from "./components/BuyForm";
 const Coin = () => {

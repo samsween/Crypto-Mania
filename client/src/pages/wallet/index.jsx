@@ -16,8 +16,7 @@ const Wallet = () => {
     { refetchInterval: 60 * 1000 }
   );
   const totalWalletValue = useMemo(() => {
-    if (!data) return null;
-    return data.reduce((acc, crypto) => {
+    return data?.reduce((acc, crypto) => {
       return acc + crypto.total * crypto.current_price;
     }, 0);
   }, [data]);

@@ -43,6 +43,7 @@ const Wallet = () => {
         <Table>
           {data.map((crypto, index) => (
             <WalletData
+              key={crypto._id}
               crypto={crypto}
               index={index}
               setCurrentSelected={setCurrentSelected}

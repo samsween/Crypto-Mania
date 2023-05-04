@@ -50,34 +50,46 @@ const soldPositionsSchema = new Schema(
   }
 );
 
-const cryptoSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
+const cryptoSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    symbol: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+    },
+    boughtPositions: {
+      type: [boughtPositionsSchema],
+      default: [],
+    },
+    soldPositions: {
+      type: [soldPositionsSchema],
+      default: [],
+    },
+    total: {
+      type: Number,
+      default: 0,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
-  symbol: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-  },
-  boughtPositions: {
-    type: [boughtPositionsSchema],
-    default: [],
-  },
-  soldPositions: {
-    type: [soldPositionsSchema],
-    default: [],
-  },
-  total: {
-    type: Number,
-    default: 0,
-  },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
+  {
+    toJSON: {
+      getters: true,
+      virtuals: true,
+    },
+  }
+);
+// set max 8 decimal places
+cryptoSchema.path("total").set(function (num) {
+  return parseFloat(num).toFixed(8);
 });
 
 module.exports = mongoose.model("Crypto", cryptoSchema);

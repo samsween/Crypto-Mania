@@ -129,4 +129,15 @@ module.exports = {
         return res.status(500).json({ error: "Server error" });
       });
   },
+  getTransactions: (req, res) => {
+    const userId = req.user.id;
+    Crypto.find({ user: userId } )
+    .select('name symbol boughtPositions soldPositions')
+      .then((crypto) => {
+        return res.json(crypto);
+      })
+      .catch((err) => {
+        return res.status(500).json({ error: "Server error" });
+      });
+  }
 };

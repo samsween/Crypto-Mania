@@ -4,14 +4,14 @@ const Crypto = require("../models/Crypto");
 const User = require("../models/User");
 module.exports = {
   getCrypto: (req, res) => {
-    Crypto.find({ user: req.user.id })
+    Crypto.find({ user: req.user.id, total: { $gt: 0 } })
       .then(async (crypto) => {
         let data;
         if (cache.get("marketData")) {
           data = cache.get("marketData");
         } else {
           const res = await axios.get(
-            "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+            "https://api.coingecko.com/api/v3/coins/markets?vs_currency=aud&order=market_cap_desc&per_page=100&page=1&sparkline=false"
           );
           data = res.data;
           setMarketCache(data);
@@ -52,7 +52,7 @@ module.exports = {
               quantity,
               image,
               boughtPositions: [{ price, quantity, date: new Date() }],
-              total: parseFloat(quantity),
+              total: parseFloat(quantity).toFixed(8),
               user: userId,
             }).then((crypto) => {
               user
@@ -70,7 +70,7 @@ module.exports = {
             crypto
               .updateOne(
                 {
-                  $inc: { total: parseFloat(quantity) },
+                  $inc: { total: parseFloat(quantity).toFixed(8) },
                   $push: {
                     boughtPositions: { price, quantity, date: new Date() },
                   },
@@ -107,7 +107,7 @@ module.exports = {
         crypto
           .updateOne(
             {
-              $inc: { total: -parseFloat(quantity) },
+              $inc: { total: -parseFloat(quantity).toFixed(8) },
               $push: {
                 soldPositions: { price, quantity, date: new Date() },
               },
@@ -115,14 +115,14 @@ module.exports = {
             { new: true }
           )
           .then(async (crypto) => {
-            await User.findOneAndUpdate(
+            const user = await User.findOneAndUpdate(
               { _id: userId },
               {
                 $inc: { money: parseFloat(price) * parseFloat(quantity) },
               },
               { new: true }
             );
-            return res.json(crypto);
+            return res.json(user);
           });
       })
       .catch((err) => {

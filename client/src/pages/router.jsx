@@ -10,6 +10,7 @@ import Market from "./market";
 import Coin from "./coin";
 import Home from "./home";
 import Wallet from "./wallet";
+import { Transactions } from "./transactions";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
         <Route path="/market" element={<Market />} />
         <Route path="/market/:id" element={<Coin />} />
         <Route path="/wallet" element={<Wallet />} />
+        <Route path="/transactions" element={<Transactions />} />
       </Route>
     </Route>
   )

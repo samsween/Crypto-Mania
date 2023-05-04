@@ -37,10 +37,12 @@ module.exports = {
   },
   addCrypto: ({ body, user }, res) => {
     const { name, symbol, price, quantity, image } = body;
+    console.log(parseFloat(price) * parseFloat(quantity))
     const userId = user.id;
     User.findById(userId)
       .then((user) => {
-        if (user.money < parseFloat(price))
+        console.log(user.money)
+        if (user.money < (parseFloat(price) * parseFloat(quantity)))
           return res.status(400).json({ error: "Not enough money" });
         Crypto.findOne({ symbol, user: userId }).then((crypto) => {
           console.log(crypto);
@@ -58,12 +60,12 @@ module.exports = {
               user
                 .updateOne(
                   {
-                    $inc: { money: -parseFloat(price) },
+                    $inc: { money: -parseFloat(price) * parseFloat(quantity) },
                   },
                   { new: true }
                 )
                 .then(() => {
-                  return res.json({ money: user.money - parseFloat(price) });
+                  return res.json({ money: user.money - (parseFloat(price) * parseFloat(quantity)) });
                 });
             });
           } else {
@@ -81,12 +83,12 @@ module.exports = {
                 user
                   .updateOne(
                     {
-                      $inc: { money: -parseFloat(price) },
+                      $inc: { money: -parseFloat(price) * parseFloat(quantity) },
                     },
                     { new: true }
                   )
                   .then(() => {
-                    res.json({ money: user.money - parseFloat(price) });
+                    res.json({ money: user.money - (parseFloat(price) * parseFloat(quantity)) });
                   });
               });
           }

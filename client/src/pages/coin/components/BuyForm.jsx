@@ -36,7 +36,7 @@ export const BuyForm = ({ currentPrice, coin, setOpen }) => {
         symbol: coin.symbol,
         quantity: total,
         image: coin.image,
-        price: amount,
+        price: currentPrice,
       })
       .then((data) => {
         setUser({

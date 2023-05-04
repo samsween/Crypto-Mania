@@ -38,7 +38,7 @@ const CryptoGraph = ({ id }) => {
                 onClick={() => setType(key)}
                 key={key}
               >
-                {key}
+                {key.replace("_", " ").toUpperCase()}
               </li>
             );
           })}
@@ -67,7 +67,7 @@ const CryptoGraph = ({ id }) => {
           <Loader />
         </div>
       ) : (
-        <Graph data={data[type]} />
+        <Graph data={data[type]} time={time} />
       )}
     </div>
   );

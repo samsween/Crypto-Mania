@@ -10,10 +10,10 @@ const Wallet = () => {
   const [currentSelected, setCurrentSelected] = useState({});
   const [open, setOpen] = useState(false);
   const { user } = useUser();
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, refetch } = useQuery(
     "wallet",
     () => fetch("/api/crypto").then((res) => res.json()),
-    { refetchInterval: 60 * 1000 }
+    { refetchInterval: 60 * 1000,  }
   );
   const totalWalletValue = useMemo(() => {
     return data?.reduce((acc, crypto) => {
@@ -48,12 +48,13 @@ const Wallet = () => {
               index={index}
               setCurrentSelected={setCurrentSelected}
               setOpen={setOpen}
+             
             />
           ))}
         </Table>
       </div>
       <Modal open={open} setOpen={setOpen}>
-        <SellForm {...currentSelected} />
+        <SellForm {...currentSelected} refetch={refetch} setOpen={setOpen} />
       </Modal>
     </div>
   );

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import socket from "../../../utils/socket";
 import { Loader } from "../../../components/Loader";
+import { useUser } from "../../../context/authContext";
 
-export const SellForm = ({ id, symbol, total }) => {
+export const SellForm = ({ id, symbol, total, refetch, setOpen }) => {
   const [price, setPrice] = useState(null);
   const [totalToSell, setTotalToSell] = useState("0");
   const [val, setVal] = useState(0);
+  const {setUser, user} = useUser();
   useEffect(() => {
     const onPrice = (value) => {
       setPrice(parseFloat(value.price));
@@ -21,7 +23,7 @@ export const SellForm = ({ id, symbol, total }) => {
   const onTotalToSellChange = (e) => {
     var countDecimals = function (value) {
       if (Math.floor(value) === value) return 0;
-      return value.toString().split(".")[1].length || 0;
+      return value.toString().split(".")[1]?.length || 0;
     };
     if (isNaN(e.target.value) && e.target.value !== "")
       return setTotalToSell(0);
@@ -50,7 +52,11 @@ export const SellForm = ({ id, symbol, total }) => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        refetch();
+        setUser({...user, money: data.money});
+        setOpen(false)
+      })
       .catch((err) => console.log(err));
   };
   return (

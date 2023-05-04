@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-extra");
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 const http = require("http").createServer(app);
 const routes = require("./routes");
 const connect = require("./config/mongoConnection");
@@ -8,6 +9,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require("path");
 const initIo = require("./socket/initIo");
+puppeteer.use(StealthPlugin());
 const io = require("socket.io")(http, {
   cors: {
     origin: "http://localhost:3001",

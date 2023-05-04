@@ -5,7 +5,7 @@ export const sortData = (data) => {
       positions: [
         ...crypto.soldPositions.map((pos) => {
           return {
-            position: pos,
+            ...pos,
             type: "sold",
             name: crypto.name,
             symbol: crypto.symbol,
@@ -13,7 +13,7 @@ export const sortData = (data) => {
         }),
         ...crypto.boughtPositions.map((pos) => {
           return {
-            position: pos,
+            ...pos,
             type: "bought",
             name: crypto.name,
             symbol: crypto.symbol,
@@ -29,7 +29,7 @@ export const sortData = (data) => {
     });
   });
   const sorted = [...arr].sort((a, b) => {
-    return new Date(b.position.date) - new Date(a.position.date);
+    return new Date(b.date) - new Date(a.date);
   });
   return sorted;
 };

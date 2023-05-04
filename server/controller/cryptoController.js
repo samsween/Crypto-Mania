@@ -98,6 +98,7 @@ module.exports = {
   },
   sellCrypto: ({ body, user }, res) => {
     const { symbol, quantity, price } = body;
+    console.log(body);
     const userId = user.id;
     Crypto.findOne({ symbol, user: userId })
       .then((crypto) => {
@@ -113,11 +114,11 @@ module.exports = {
             },
             { new: true }
           )
-          .then((crypto) => {
-            User.findOneAndUpdate(
-              { __id: userId },
+          .then(async (crypto) => {
+            await User.findOneAndUpdate(
+              { _id: userId },
               {
-                $inc: { money: parseFloat(price) },
+                $inc: { money: parseFloat(price) * parseFloat(quantity) },
               },
               { new: true }
             );

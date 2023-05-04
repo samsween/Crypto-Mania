@@ -34,11 +34,28 @@ export const SellForm = ({ id, symbol, total }) => {
     if (e.target.value < 0) {
       setTotalToSell(0);
     }
-    fetch("/api/")
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (totalToSell > total) return;
+    fetch("/api/crypto/sell", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        symbol: symbol,
+        quantity: totalToSell,
+        price: price,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   };
   return (
     <div className="w-full h-full bg-primary-100 p-10 flex flex-col justify-between  text-gray-300">
-      <form>
+      <form onSubmit={onSubmit}>
         <h1 className="text-2xl font-bold text-center flex w-full items-center justify-center gap-8">
           Current Price:{" "}
           {price ? (
@@ -65,6 +82,11 @@ export const SellForm = ({ id, symbol, total }) => {
             type="number"
           />
         </div>
+        <div className="flex justify-center items-center">
+          <button className="bg-orange-500 w-[90%] text-primary-100 mt-8 py-4 rounded-md">
+            Sell {symbol.toUpperCase()}
+          </button>
+        </div>
       </form>
       <h1 className="text-2xl font-bold text-center flex w-full items-center justify-center gap-8">
         Total Sell Value:
@@ -76,12 +98,6 @@ export const SellForm = ({ id, symbol, total }) => {
           </span>
         )}
       </h1>
-
-      <div className="flex justify-center items-center">
-        <button className="bg-orange-500 w-[90%] text-primary-100 py-4 rounded-md">
-          Sell {symbol.toUpperCase()}
-        </button>
-      </div>
     </div>
   );
 };

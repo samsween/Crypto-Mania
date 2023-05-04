@@ -41,6 +41,16 @@ const cryptoService = {
       throw err.response.data.error;
     }
   },
+  getHistoricalMarket: async (id, time) => {
+    try {
+      const res = await axios.get(
+        `/api/market/historical?id=${id}&days=${time}`
+      );
+      return res.data;
+    } catch (err) {
+      throw err.response.data.error;
+    }
+  },
 };
 
 export default cryptoService;

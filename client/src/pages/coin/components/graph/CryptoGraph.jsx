@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { Graph } from "./Graph";
 import { Loader } from "../../../../components/Loader";
+import cryptoService from "../../../../utils/cryptoService";
 
 const TIMES = {
   "1D": "1",
@@ -20,9 +21,7 @@ const CryptoGraph = ({ id }) => {
   const [time, setTime] = useState(TIMES["1D"]);
   const [type, setType] = useState("prices");
   const { data, isLoading, error } = useQuery([id, time], () => {
-    return fetch(`/api/market/historical?id=${id}&days=${time}`).then((res) =>
-      res.json()
-    );
+   return cryptoService.getHistoricalMarket(id, time);
   });
   return (
     <div className="relative w-full h-fq">

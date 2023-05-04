@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useUser } from "../../../context/authContext";
+import cryptoService from "../../../utils/cryptoService";
 
 export const BuyForm = ({ currentPrice, coin, setOpen }) => {
   const { user, setUser } = useUser();
@@ -29,21 +30,14 @@ export const BuyForm = ({ currentPrice, coin, setOpen }) => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-    fetch("/api/crypto", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
+    cryptoService
+      .buyCrypto({
         name: coin.name,
         symbol: coin.symbol,
         quantity: total,
         image: coin.image,
         price: amount,
-      }),
-    })
-      .then((res) => res.json())
+      })
       .then((data) => {
         setUser({
           ...user,

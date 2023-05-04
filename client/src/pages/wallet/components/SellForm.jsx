@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import socket from "../../../utils/socket";
 import { Loader } from "../../../components/Loader";
 import { useUser } from "../../../context/authContext";
+import cryptoService from "../../../utils/cryptoService";
 
 export const SellForm = ({ id, symbol, total, refetch, setOpen }) => {
   const [price, setPrice] = useState(null);
   const [totalToSell, setTotalToSell] = useState("0");
-  const [val, setVal] = useState(0);
-  const {setUser, user} = useUser();
+  const { setUser, user } = useUser();
   useEffect(() => {
     const onPrice = (value) => {
       setPrice(parseFloat(value.price));
@@ -37,25 +37,15 @@ export const SellForm = ({ id, symbol, total, refetch, setOpen }) => {
       setTotalToSell(0);
     }
   };
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (totalToSell > total) return;
-    fetch("/api/crypto/sell", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        symbol: symbol,
-        quantity: totalToSell,
-        price: price,
-      }),
-    })
-      .then((res) => res.json())
+    await cryptoService
+      .sellCrypto({ symbol, quantity: totalToSell, price: price })
       .then((data) => {
         refetch();
-        setUser({...user, money: data.money});
-        setOpen(false)
+        setUser({ ...user, money: data.money });
+        setOpen(false);
       })
       .catch((err) => console.log(err));
   };

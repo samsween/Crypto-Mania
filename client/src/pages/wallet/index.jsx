@@ -6,13 +6,14 @@ import { AnimatePrice } from "../../components/AnimatePrice";
 import { useUser } from "../../context/authContext";
 import { Table } from "./components/Table";
 import { WalletData } from "./components/WalletData";
+import cryptoService from "../../utils/cryptoService";
 const Wallet = () => {
   const [currentSelected, setCurrentSelected] = useState({});
   const [open, setOpen] = useState(false);
   const { user } = useUser();
   const { data, isLoading, refetch } = useQuery(
     "wallet",
-    () => fetch("/api/crypto").then((res) => res.json()),
+    () => cryptoService.getUserCrypto(),
     { refetchInterval: 60 * 1000,  }
   );
   const totalWalletValue = useMemo(() => {

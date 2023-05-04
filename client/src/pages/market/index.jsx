@@ -3,11 +3,12 @@ import { Table } from "./comonents/Table";
 import { CoinData } from "./comonents/CoinData";
 import { ArrowRight, ArrowLeft } from "tabler-icons-react";
 import { useState, useMemo } from "react";
+import cryptoService from "../../utils/cryptoService";
 const Market = () => {
   const { error, isLoading, data } = useQuery(
     "market",
     () => {
-      return fetch("/api/market").then((res) => res.json());
+      return cryptoService.getCryptoMarket();
     },
     {
       refetchInterval: 1000 * 60,

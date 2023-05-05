@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react"
 import { useQuery } from "react-query"
 import { sortData } from "./utils/sortData"
+import {motion} from "framer-motion"
 
 // Data looks like this
 /*
@@ -90,15 +91,21 @@ export const Transactions = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {sortedData.sort(SORT_TYPES[sortType](SORT_FUNCTIONS[sortOption])).map((transaction) => (
-                        <tr key={transaction._id}>
+                    {sortedData.sort(SORT_TYPES[sortType](SORT_FUNCTIONS[sortOption])).map((transaction, index) => (
+                        <motion.tr
+                         key={transaction._id}
+                            initial={{opacity: 0}}
+                            animate={{opacity: 1}}
+                            transition={{delay: index * 0.1}}
+
+                         >
                             <td>{transaction.date}</td>
                             <td className={transaction.type === "sold" ? "text text-red-500": "text text-green-500 "  }>{transaction.type}</td>
                             <td>{transaction.name}</td>
                             <td>${transaction.price}</td>
                             <td>{transaction.quantity}</td>
                             <td>${transaction.price * transaction.quantity}</td>
-                        </tr>
+                        </motion.tr>
                     ))}
                 </tbody>
             </table>

@@ -91,9 +91,9 @@ export const Transactions = () => {
                 </thead>
                 <tbody>
                     {sortedData.sort(SORT_TYPES[sortType](SORT_FUNCTIONS[sortOption])).map((transaction) => (
-                        <tr key={transaction._id} className={transaction.type === "sold" ? "text text-red-500": "text text-green-500 "  }>
+                        <tr key={transaction._id}>
                             <td>{transaction.date}</td>
-                            <td>{transaction.type}</td>
+                            <td className={transaction.type === "sold" ? "text text-red-500": "text text-green-500 "  }>{transaction.type}</td>
                             <td>{transaction.name}</td>
                             <td>${transaction.price}</td>
                             <td>{transaction.quantity}</td>

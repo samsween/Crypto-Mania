@@ -31,7 +31,18 @@ const userSchema = new Schema({
     type: Number,
     default: 50000,
   },
+}, {
+  toJSON: {
+    getters: true,
+    virtuals: true,
+  },
 });
+
+userSchema.path("money").set(function (num) {
+  return parseFloat(num).toFixed(2);
+});
+
+
 userSchema.pre("save", async function (next) {
   if (this.isNew) {
     this.password = await hashPassword(this.password);

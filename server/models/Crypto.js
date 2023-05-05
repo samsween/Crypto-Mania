@@ -22,9 +22,15 @@ const boughtPositionsSchema = new Schema(
   {
     toJSON: {
       getters: true,
+      virtuals: true,
     },
   }
 );
+
+boughtPositionsSchema.path("quantity").set(function (num) {
+  return parseFloat(num).toFixed(8);
+});
+
 
 const soldPositionsSchema = new Schema(
   {
@@ -46,9 +52,15 @@ const soldPositionsSchema = new Schema(
   {
     toJSON: {
       getters: true,
+      virtuals: true,
     },
   }
 );
+
+soldPositionsSchema.path("quantity").set(function (num) {
+  return parseFloat(num).toFixed(8);
+});
+
 
 const cryptoSchema = new Schema(
   {

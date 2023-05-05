@@ -34,7 +34,7 @@ export const BuyForm = ({ currentPrice, coin, setOpen }) => {
       .buyCrypto({
         name: coin.name,
         symbol: coin.symbol,
-        quantity: total,
+        quantity: parseFloat(total).toFixed(8),
         image: coin.image,
         price: currentPrice,
       })

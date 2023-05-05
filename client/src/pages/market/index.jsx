@@ -4,6 +4,7 @@ import { CoinData } from "./comonents/CoinData";
 import { ArrowRight, ArrowLeft } from "tabler-icons-react";
 import { useState, useMemo } from "react";
 import cryptoService from "../../utils/cryptoService";
+import { SORT_FUNCTIONS, SORT_TYPE } from "./utils/sortFunctions";
 const Market = () => {
   const { error, isLoading, data } = useQuery(
     "market",
@@ -16,6 +17,8 @@ const Market = () => {
   );
   const [search, setSearch] = useState("");
   const [entries, setEntries] = useState(10);
+  const [sortType, setSortType] = useState("asc");
+  const [sortOption, setSortOption] = useState("market_cap");
   const [page, setPage] = useState(1);
   const setEntriesAndSearch = useMemo(() => {
     return data
@@ -27,6 +30,13 @@ const Market = () => {
   const totalPages = useMemo(() => {
     return Math.ceil(data?.length / entries);
   }, [data, entries]);
+
+
+  const handleClick = (type) => {
+    
+    setSortOption(type);
+    setSortType((prev) => (prev === "asc" ? "desc" : "asc"));
+  };
 
   const onEntriesChange = (e) => {
     setEntries(e.target.value);
@@ -77,10 +87,12 @@ const Market = () => {
             />
           </div>
         </div>
-        <Table>
-          {setEntriesAndSearch.map((coin, index) => {
-            return <CoinData coin={coin} index={index} key={coin.id} />;
-          })}
+        <Table handleClick={handleClick}>
+          {setEntriesAndSearch
+            .sort(SORT_TYPE[sortType](SORT_FUNCTIONS[sortOption]))
+            .map((coin, index) => {
+              return <CoinData coin={coin} index={index} key={coin.id} />;
+            })}
         </Table>
         <div className="w-full flex justify-between py-2">
           <button

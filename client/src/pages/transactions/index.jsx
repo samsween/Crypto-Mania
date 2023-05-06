@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { useQuery } from "react-query";
 import { sortData } from "./utils/sortData";
 import { motion } from "framer-motion";
+import { ArrowDown, ArrowUp } from "tabler-icons-react";
 
 // Data looks like this
 /*
@@ -31,11 +32,13 @@ const SORT_FUNCTIONS = {
 
 const SORT_OPTIONS = {
   date: "date",
+  type: "type",
+  coin: "coin",
   price: "price",
   quantity: "quantity",
   total: "total",
-  coin: "coin",
-  type: "type",
+
+
 };
 
 const SORT_TYPES = {
@@ -65,60 +68,19 @@ export const Transactions = () => {
         <table className="table table-auto w-full p-10 bg-primary-100 border-l border-r text-2xl  border-orange-500">
           <thead>
             <tr>
-              <th
-                scope="col"
-                className="text-orange-500"
-                onClick={() => {
-                  handleClick(SORT_OPTIONS.date);
-                }}
-              >
-                Date
-              </th>
-              <th
-                scope="col"
-                className="text-orange-500"
-                onClick={() => {
-                  handleClick(SORT_OPTIONS.type);
-                }}
-              >
-                Type
-              </th>
-              <th
-                scope="col"
-                className="text-orange-500"
-                onClick={() => {
-                  handleClick(SORT_OPTIONS.coin);
-                }}
-              >
-                Coin
-              </th>
-              <th
-                scope="col"
-                className="text-orange-500"
-                onClick={() => {
-                  handleClick(SORT_OPTIONS.price);
-                }}
-              >
-                Price
-              </th>
-              <th
-                scope="col"
-                className="text-orange-500"
-                onClick={() => {
-                  handleClick(SORT_OPTIONS.quantity);
-                }}
-              >
-                Quantity
-              </th>
-              <th
-                scope="col"
-                className="text-orange-500"
-                onClick={() => {
-                  handleClick(SORT_OPTIONS.total);
-                }}
-              >
-                Total
-              </th>
+              {/*  <th className="cursor-pointer" onClick={() => handleClick(SORT_OPTIONS.date)}> */}
+              {Object.keys(SORT_OPTIONS).map((option) => (
+                <th
+                  className="cursor-pointer "
+                  onClick={() => handleClick(SORT_OPTIONS[option])}
+                >
+                  <div className="flex px-2 justify-between">
+                    {SORT_OPTIONS[option]}
+                    {sortOption === SORT_OPTIONS[option] &&
+                      (sortType === "asc" ? <ArrowUp /> : <ArrowDown />)}
+                  </div>
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -144,7 +106,9 @@ export const Transactions = () => {
                   <td>{transaction.name}</td>
                   <td>${transaction.price}</td>
                   <td>{transaction.quantity}</td>
-                  <td>${transaction.price * transaction.quantity}</td>
+                  <td>
+                    ${(transaction.price * transaction.quantity).toFixed(2)}
+                  </td>
                 </motion.tr>
               ))}
           </tbody>

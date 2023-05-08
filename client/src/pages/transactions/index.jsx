@@ -37,8 +37,6 @@ const SORT_OPTIONS = {
   price: "price",
   quantity: "quantity",
   total: "total",
-
-
 };
 
 const SORT_TYPES = {
@@ -73,6 +71,7 @@ export const Transactions = () => {
                 <th
                   className="cursor-pointer "
                   onClick={() => handleClick(SORT_OPTIONS[option])}
+                  key={option}
                 >
                   <div className="flex px-2 justify-between">
                     {SORT_OPTIONS[option]}

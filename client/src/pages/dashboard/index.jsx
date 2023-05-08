@@ -14,10 +14,13 @@ export const Dashboard = () => {
 
   const totalWalletValue = useMemo(() => {
     return data?.reduce((acc, crypto) => {
-      console.log(crypto);
       return acc + crypto.total * crypto.current_price;
     }, 0);
   }, [data]);
+  const priceChange = useMemo(() => {
+    // Formula is (a - b)/ b * 100
+    return (((totalWalletValue + user?.money) - 50000) / 50000) * 100
+  }, [totalWalletValue, user?.money])
   return (
     <div className="w-full h-full">
       <h1 className="text-center py-20 text-gray-200 text-2xl">Dashboard</h1>
@@ -35,11 +38,15 @@ export const Dashboard = () => {
               <AnimatePrice price={totalWalletValue + user?.money} />
             </div>
           </div>
+          <div className="flex gap-2">
+          <h1 className=" text-gray-300 ">Value change (all time)</h1>
+          <div className={priceChange < 0 ? "text-red-500" : "text-green-500"}>
+          %<AnimatePrice price={priceChange} />
+          </div>
         </div>
-        <div>
-          <h1 className="text-2xl text-gray-300">Change since start</h1>
-          %<AnimatePrice price={1 - ((totalWalletValue + user?.money) / 50000)} />
         </div>
+    
+     
       </div>
     </div>
   );

@@ -51,6 +51,16 @@ const cryptoService = {
       throw err.response.data.error;
     }
   },
+  getTransactions: async () => {
+    try {
+      const res = await axios.get("/api/crypto/transactions", {
+        withCredentials: true,
+      });
+      return res.data;
+    } catch (err) {
+      throw err.response.data.error;
+    }
+  }
 };
 
 export default cryptoService;

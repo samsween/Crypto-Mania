@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { sortData } from "./utils/sortData";
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowUp } from "tabler-icons-react";
+import cryptoService from "../../utils/cryptoService";
 
 // Data looks like this
 /*
@@ -48,7 +49,7 @@ export const Transactions = () => {
   const [sortOption, setSortOption] = useState(SORT_OPTIONS.price);
   const [sortType, setSortType] = useState("asc");
   const { data } = useQuery("transactions", () => {
-    return fetch("/api/crypto/transactions").then((res) => res.json());
+    return cryptoService.getTransactions();
   });
   const sortedData = useMemo(() => {
     if (!data) return [];

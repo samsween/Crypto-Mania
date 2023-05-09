@@ -25,7 +25,10 @@ if (process.env.NODE_ENV === "production") {
   });
 } else {
   app.use(
-  
+    cors({
+      origin: "http://localhost:3001",
+      credentials: true,
+    })
   );
 }
 

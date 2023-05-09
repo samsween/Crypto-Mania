@@ -34,17 +34,17 @@ if (process.env.NODE_ENV === "production") {
 
 connect()
   .then(async () => {
-    const browser = await puppeteer.launch({
-      defaultViewport: {
-        width: 1280,
-        height: 1024,
-      },
-      args: ["--no-sandbox"],
-    });
-    return browser;
+    // const browser = await puppeteer.launch({
+    //   defaultViewport: {
+    //     width: 1280,
+    //     height: 1024,
+    //   },
+    //   args: ["--no-sandbox"],
+    // });
+    // return browser;
   })
   .then(async (browser) => {
-    await initIo(io, browser);
+    // await initIo(io, browser);
     http.listen(PORT, () => {
       console.log("listening on *:3000");
     });

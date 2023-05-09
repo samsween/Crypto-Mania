@@ -51,9 +51,6 @@ const Coin = () => {
           >
             Buy
           </button>
-          <button className="bg-primary-100 w-full  text-orange-500  border border-orange-500 py-4 rounded-md">
-            Sell
-          </button>
         </div>
         <div className=" w-full bg-primary-100 p-10 text-gray-300">
           <div className="px-10 flex justify-between m-auto text-xl">

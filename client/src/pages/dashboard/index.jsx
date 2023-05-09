@@ -107,10 +107,8 @@ export const Dashboard = () => {
           </table>
         </div>
       </div>
-      <div className=" w-full flex justify-between items-center">
+      <div className=" w-full flex justify-between items-center mt-20">
         <div className="flex flex-col">
-          <h1 className="text-center text-gray-300">Your Crypto</h1>
-
           <CryptoPieChart total={total} isLoading={userCrypto?.isLoading} />
         </div>
         <div className="text-4xl flex flex-col justify-center items-center gap-8 w-1/2">

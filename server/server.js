@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const puppeteer = require("puppeteer-extra");
-const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+const puppeteer = require("puppeteer");
+// const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 const http = require("http").createServer(app);
 const routes = require("./routes");
 const connect = require("./config/mongoConnection");
@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require("path");
 const initIo = require("./socket/initIo");
-puppeteer.use(StealthPlugin());
+// puppeteer.use(StealthPlugin());
 const io = require("socket.io")(http);
 const PORT = process.env.PORT || 3000;
 
@@ -39,7 +39,7 @@ connect()
         width: 1280,
         height: 1024,
       },
-      args: ["--no-sandbox"],
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
     return browser;
   })

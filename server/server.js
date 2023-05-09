@@ -16,12 +16,7 @@ const io = require("socket.io")(http, {
   },
 });
 const PORT = process.env.PORT || 3000;
-app.use(
-  cors({
-    origin: "http://localhost:3001",
-    credentials: true,
-  })
-);
+
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -32,6 +27,13 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/dist/index.html"));
   });
+} else {
+  app.use(
+    cors({
+      origin: "http://localhost:3001",
+      credentials: true,
+    })
+  );
 }
 
 connect()

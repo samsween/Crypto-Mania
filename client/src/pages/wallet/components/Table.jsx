@@ -1,12 +1,12 @@
 export const Table = ({ children }) => {
   return (
-    <table className=" table-auto text-gray-300 text-xs lg:text-sm 2xl:text-lg w-full">
+    <table className=" table-auto text-gray-300 text-sm  2xl:text-lg w-full">
       <thead>
         <tr className="">
           <th className="px-4 py-2">Name</th>
-          <th className="px-4 py-2">Symbol</th>
+          <th className="px-4 py-2 hidden md:table-cell">Symbol</th>
           <th className="px-4 py-2">Amount</th>
-          <th>Value</th>
+          <th className="hidden md:table-cell">Value</th>
           <th className="px-4 py-2">Action</th>
         </tr>
       </thead>

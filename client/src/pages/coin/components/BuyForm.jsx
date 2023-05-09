@@ -48,7 +48,7 @@ export const BuyForm = ({ currentPrice, coin, setOpen }) => {
   };
   return (
     <div className="w-full h-full bg-primary-100 border border-gray-300 text-gray-200 flex flex-col p-4">
-      <div className="w-full flex text-2xl flex-col gap-8 items-center justify-center">
+      <div className="w-full flex text-lg lg:text-2xl flex-col gap-8 items-center justify-center">
         <h1>
           {coin.name} ({coin?.symbol?.toUpperCase()})
         </h1>
@@ -69,18 +69,18 @@ export const BuyForm = ({ currentPrice, coin, setOpen }) => {
               placeholder="0.00000000"
               name="amount"
               id="amount"
-              className="w-full text-center text-gray-300 focus:outline-none h-10 py-2 text-2xl bg-transparent placeholder:text-gray-600 border-b border-primary-200"
+              className="w-full text-center text-gray-300 focus:outline-none h-10 py-2 text-lg lg:text-2xl bg-transparent placeholder:text-gray-600 border-b border-primary-200"
             />
           </div>
         </div>
-        <div className="w-full px-20  text-2xl flex h-10  justify-between text-center">
+        <div className="w-full px-20 text-lg lg:text-xl flex h-10  justify-between flex-col md:flex-row mb-10 md:mb-0 text-center">
           <div>
             Amount of coins:
-            <h1 className="text-center text-4xl text-orange-500">{total}</h1>
+            <h1 className="text-center text-lg lg:text-4xl text-orange-500">{total}</h1>
           </div>
           <div>
             Total:
-            <h1 className="text-center text-4xl text-orange-500">${amount}</h1>
+            <h1 className="text-center text-lg lg:text-4xl text-orange-500">${amount}</h1>
           </div>
         </div>
         <button className="w-full h-10 border border-primary-200 hover:border-orange-500 text-2xl duration-200 text-white rounded-md">

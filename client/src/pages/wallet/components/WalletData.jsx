@@ -12,17 +12,21 @@ export const WalletData = ({ crypto, index, setOpen, setCurrentSelected }) => {
     >
       <td className="flex justify-between px-8">
         {crypto.name}
-        <img src={crypto.image} alt="crypto" className="w-8 h-8" />
+        <img
+          src={crypto.image}
+          alt="crypto"
+          className="w-8 h-8 hidden md:flex"
+        />
       </td>
-      <td>{crypto.symbol}</td>
+      <td className="hidden md:table-cell">{crypto.symbol}</td>
       <td>{crypto.total}</td>
-      <td>
+      <td className="hidden md:table-cell">
         $
         {(parseFloat(crypto.total) * parseFloat(crypto.current_price)).toFixed(
           1
         )}
       </td>
-      <td className="flex justify-between">
+      <td className="flex justify-center items-center md:justify-between flex-col md:flex-row">
         <button
           onClick={() => {
             setCurrentSelected(() => ({

@@ -41,7 +41,7 @@ export const Modal = ({ open, setOpen, children }) => {
               damping: 15,
               mass: 0.4,
             }}
-            className="w-1/2 h-1/2 bg-white rounded-lg shadow-lg m-auto"
+            className="w-full md:w-3/4 lg:w-1/2 h-1/2 bg-white rounded-lg shadow-lg m-auto"
             ref={containeRef}
           >
             {children}

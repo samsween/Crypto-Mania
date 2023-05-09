@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 export const PriceTable = ({ data }) => {
   return (
     <table>
-      <tbody className="w-full">
+      <tbody className="w-full text-sm lg:text-xl">
         {data.map((item, index) => (
           <motion.tr
             initial={{ opacity: 0, y: 20 }}

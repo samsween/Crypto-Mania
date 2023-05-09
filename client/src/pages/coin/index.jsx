@@ -52,8 +52,8 @@ const Coin = () => {
             Buy
           </button>
         </div>
-        <div className=" w-full bg-primary-100 p-10 text-gray-300">
-          <div className="px-10 flex justify-between m-auto text-xl">
+        <div className=" w-full bg-primary-100 p-0 pb-10 lg:p-10 text-gray-300">
+          <div className="px-0 lg:px-10 flex flex-col 2xl:flex-row justify-between m-auto text-xl">
             {price.data ? (
               <>
                 <PriceTable data={price?.data?.slice(0, 4)} />

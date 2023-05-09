@@ -62,8 +62,8 @@ export const Transactions = () => {
   return (
     <div className="w-full h-full">
       <h1 className="text-center py-20 text-gray-200 text-2xl">Transactions</h1>
-      <div className="px-20 text-gray-300  py-10">
-        <table className="table table-auto w-full p-10 bg-primary-100 border-l border-r text-2xl  border-orange-500">
+      <div className="px-4 xl:px-20 text-gray-300  py-10">
+        <table className="table table-auto w-full p-10 bg-primary-100 border-l border-r text-md lg:text-xl  border-orange-500">
           <thead>
             <tr>
               {/*  <th className="cursor-pointer" onClick={() => handleClick(SORT_OPTIONS.date)}> */}

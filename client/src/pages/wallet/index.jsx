@@ -40,7 +40,7 @@ const Wallet = () => {
         </div>
       </div>
       <h1 className="text-2xl text-center  text-gray-300">Your Wallet</h1>
-      <div className="px-20 text-xl">
+      <div className="px-2 lg:px-20 text-xl">
         <Table>
           {data.map((crypto, index) => (
             <WalletData

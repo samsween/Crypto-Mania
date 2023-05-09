@@ -26,7 +26,7 @@ const CryptoGraph = ({ id }) => {
   return (
     <div className="relative w-full h-fq">
       <div className="absoulte top-0 left-0 flex px-2 w-full  justify-between">
-        <ul className="flex gap-4">
+        <ul className="flex gap-4 text-xs md:text-lg">
           {Object.keys(PRICES).map((key) => {
             return (
               <li
@@ -43,7 +43,7 @@ const CryptoGraph = ({ id }) => {
             );
           })}
         </ul>
-        <ul className="flex gap-4">
+        <ul className="flex gap-4 text-xs md:text-lg">
           {Object.keys(TIMES).map((key) => {
             return (
               <li

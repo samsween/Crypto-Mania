@@ -29,7 +29,6 @@ export const Dashboard = () => {
       return { ...crypto, totalValue: parseFloat(totalValue) };
     });
   }, [userCrypto?.data]);
-  console.log(total);
   const totalWalletValue = useMemo(() => {
     return userCrypto?.data?.reduce((acc, crypto) => {
       return acc + crypto.total * crypto.current_price;
@@ -42,7 +41,7 @@ export const Dashboard = () => {
   return (
     <div className="w-3/4  m-auto h-full">
       <h1 className="text-center py-20 text-gray-200 text-xl">Dashboard</h1>
-      <div className="flex justify-between items-center text-xl text-gray-300">
+      <div className="flex justify-between items-center gap-8 text-xl text-gray-300">
         <div className="flex flex-col gap-8  ">
           <div className="flex gap-2">
             <h1>Your Crypto Value:</h1>
@@ -67,7 +66,7 @@ export const Dashboard = () => {
         </div>
         <div className="flex justify-center flex-col items-center">
           <h1 className=" text-gray-300 text-md ">Recent Transactions</h1>
-          <table className="table-auto w-3/4">
+          <table className="table-auto w-3/4 text-sm">
             <thead>
               <tr>
                 <th className="px-4 py-2 text-gray-300">Date</th>
@@ -116,15 +115,11 @@ export const Dashboard = () => {
         </div>
         <div className="text-4xl flex flex-col justify-center items-center gap-8 w-1/2">
           <div>
-          <h1 className="text-center text-gray-300">Current Cash</h1>
-          <div className="text-center text-orange-500">
-            <AnimatePrice price={user?.money} />
+            <h1 className="text-center text-gray-300">Current Cash</h1>
+            <div className="text-center text-orange-500">
+              <AnimatePrice price={user?.money} />
+            </div>
           </div>
-          </div>
-          
-          <button className="bg-primary-100 px-8 py-4 border border-orange-500 rounded-md text-gray-300">
-            Add Money
-          </button>
         </div>
       </div>
     </div>

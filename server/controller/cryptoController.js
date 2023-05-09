@@ -31,21 +31,17 @@ module.exports = {
         return res.json(cryptoWithPrice);
       })
       .catch((err) => {
-        console.log(err);
         return res.status(500).json({ error: "Server error" });
       });
   },
   addCrypto: ({ body, user }, res) => {
     const { name, symbol, price, quantity, image } = body;
-    console.log(parseFloat(price) * parseFloat(quantity))
     const userId = user.id;
     User.findById(userId)
       .then((user) => {
-        console.log(user.money)
-        if (user.money < (parseFloat(price) * parseFloat(quantity)))
+        if (user.money < parseFloat(price) * parseFloat(quantity))
           return res.status(400).json({ error: "Not enough money" });
         Crypto.findOne({ symbol, user: userId }).then((crypto) => {
-          console.log(crypto);
           if (!crypto) {
             Crypto.create({
               name,
@@ -65,7 +61,10 @@ module.exports = {
                   { new: true }
                 )
                 .then(() => {
-                  return res.json({ money: user.money - (parseFloat(price) * parseFloat(quantity)) });
+                  return res.json({
+                    money:
+                      user.money - parseFloat(price) * parseFloat(quantity),
+                  });
                 });
             });
           } else {
@@ -83,12 +82,17 @@ module.exports = {
                 user
                   .updateOne(
                     {
-                      $inc: { money: -parseFloat(price) * parseFloat(quantity) },
+                      $inc: {
+                        money: -parseFloat(price) * parseFloat(quantity),
+                      },
                     },
                     { new: true }
                   )
                   .then(() => {
-                    res.json({ money: user.money - (parseFloat(price) * parseFloat(quantity)) });
+                    res.json({
+                      money:
+                        user.money - parseFloat(price) * parseFloat(quantity),
+                    });
                   });
               });
           }
@@ -100,7 +104,6 @@ module.exports = {
   },
   sellCrypto: ({ body, user }, res) => {
     const { symbol, quantity, price } = body;
-    console.log(body);
     const userId = user.id;
     Crypto.findOne({ symbol, user: userId })
       .then((crypto) => {
@@ -133,13 +136,13 @@ module.exports = {
   },
   getTransactions: (req, res) => {
     const userId = req.user.id;
-    Crypto.find({ user: userId } )
-    .select('name symbol boughtPositions soldPositions')
+    Crypto.find({ user: userId })
+      .select("name symbol boughtPositions soldPositions")
       .then((crypto) => {
         return res.json(crypto);
       })
       .catch((err) => {
         return res.status(500).json({ error: "Server error" });
       });
-  }
+  },
 };

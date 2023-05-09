@@ -17,7 +17,6 @@ const Coin = () => {
   const { id } = useParams();
   useEffect(() => {
     const onPrice = (value) => {
-      console.log(value);
       setPrice(value);
     };
     socket.emit("get-price", id);

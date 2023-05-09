@@ -88,12 +88,7 @@ export const SideMenu = () => {
               Profile
             </li>
           </Link>
-          <Link to={"/settings"}>
-            <li className="text-gray-400 p-1 items-center flex gap-2">
-              <Settings className="text-orange-500" />
-              Settings
-            </li>
-          </Link>
+
           <button onClick={handleLogout}>
             <li className="text-gray-400 p-1 items-center flex gap-2">
               <Logout className="text-orange-500" />

@@ -82,9 +82,9 @@ const Login = () => {
               Don't have an account?{" "}
               <span className="text-orange-500 hover:underline">Sign Up</span>
             </Link>
-            <p className="text-center text-orange-500 hover:underline">
+            {/* <p className="text-center text-orange-500 hover:underline">
               Continue as a guest
-            </p>
+            </p> */}
           </div>
         </form>
       </motion.div>

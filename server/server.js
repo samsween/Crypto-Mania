@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const puppeteer = require("puppeteer");
-// const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+const puppeteer = require("puppeteer-extra");
+const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 const http = require("http").createServer(app);
 const routes = require("./routes");
 const connect = require("./config/mongoConnection");
@@ -9,8 +9,12 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require("path");
 const initIo = require("./socket/initIo");
-// puppeteer.use(StealthPlugin());
-const io = require("socket.io")(http);
+puppeteer.use(StealthPlugin());
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "http://localhost:3001",
+  },
+});
 const PORT = process.env.PORT || 3000;
 
 app.use(cookieParser());
@@ -35,11 +39,11 @@ if (process.env.NODE_ENV === "production") {
 connect()
   .then(async () => {
     const browser = await puppeteer.launch({
+      headless: true,
       defaultViewport: {
         width: 1280,
         height: 1024,
       },
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
     return browser;
   })

@@ -25,15 +25,14 @@ const Market = () => {
       ?.filter((coin) => {
         return coin.name.toLowerCase().includes(search.toLowerCase());
       })
+      .sort(SORT_TYPE[sortType](SORT_FUNCTIONS[sortOption]))
       .slice((page - 1) * entries, page * entries);
-  }, [search, entries, data, page]);
+  }, [search, entries, data, page, sortOption, sortType]);
   const totalPages = useMemo(() => {
     return Math.ceil(data?.length / entries);
   }, [data, entries]);
 
-
   const handleClick = (type) => {
-    
     setSortOption(type);
     setSortType((prev) => (prev === "asc" ? "desc" : "asc"));
   };
@@ -88,11 +87,9 @@ const Market = () => {
           </div>
         </div>
         <Table handleClick={handleClick}>
-          {setEntriesAndSearch
-            .sort(SORT_TYPE[sortType](SORT_FUNCTIONS[sortOption]))
-            .map((coin, index) => {
-              return <CoinData coin={coin} index={index} key={coin.id} />;
-            })}
+          {setEntriesAndSearch.map((coin, index) => {
+            return <CoinData coin={coin} index={index} key={coin.id} />;
+          })}
         </Table>
         <div className="w-full flex justify-between py-2">
           <button

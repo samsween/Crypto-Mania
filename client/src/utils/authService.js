@@ -41,6 +41,26 @@ const authService = {
       throw err.response.data.error;
     }
   },
+  info: async () => {
+    try {
+      const res = await axios.get("/api/user/info", {
+        withCredentials: true,
+      });
+      return res.data;
+    } catch (err) {
+      throw err.response.data.error;
+    }
+  },
+  update: async (user) => {
+    try {
+      const res = await axios.put("/api/user/update", user, {
+        withCredentials: true,
+      });
+      return res.data;
+    } catch (err) {
+      throw err.response.data.error;
+    }
+  },
 };
 
 export default authService;

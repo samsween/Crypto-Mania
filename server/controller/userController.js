@@ -57,4 +57,25 @@ module.exports = {
       .select("username money")
       .then((user) => res.json(user));
   },
+  info: async (req, res) => {
+    await User.findById(req.user.id)
+      .select("-password -_id -__v")
+      .then((user) => res.json(user))
+      .catch((err) => res.status(404).json({ error: "Server erro" }));
+  },
+  update: async (req, res) => {
+    const user = await User.findById(req.user.id);
+    const isValid = await user.comparePassword(req.body.password);
+    if (!isValid) {
+      return res.status(400).json({ error: "Invalid password" });
+    }
+    await user
+      .updateOne(
+        { $set: { username: req.body.username, email: req.body.email } },
+        { new: true }
+      )
+      .select("-password -_id -__v")
+      .then((user) => res.json(user))
+      .catch((err) => res.status(404).json({ error: "Server erro" }));
+  },
 };

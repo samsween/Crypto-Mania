@@ -41,7 +41,7 @@ export const Dashboard = () => {
   return (
     <div className="w-3/4  m-auto h-full">
       <h1 className="text-center py-20 text-gray-200 text-xl">Dashboard</h1>
-      <div className="flex justify-between items-center gap-8 text-xl text-gray-300">
+      <div className="flex flex-col  xl:flex-row justify-between items-center gap-8 text-sm lg:text-xl text-gray-300">
         <div className="flex flex-col gap-8  ">
           <div className="flex gap-2">
             <h1>Your Crypto Value:</h1>
@@ -72,8 +72,8 @@ export const Dashboard = () => {
                 <th className="px-4 py-2 text-gray-300">Date</th>
                 <th className="px-4 py-2 text-gray-300">Crypto</th>
                 <th className="px-4 py-2 text-gray-300">Amount</th>
-                <th className="px-4 py-2 text-gray-300">Price</th>
-                <th className="px-4 py-2 text-gray-300">Total</th>
+                <th className="px-4 py-2 text-gray-300  hidden md:table-cell">Price</th>
+                <th className="px-4 py-2 text-gray-300  hidden md:table-cell">Total</th>
               </tr>
             </thead>
             <tbody>
@@ -93,10 +93,10 @@ export const Dashboard = () => {
                   <td className=" px-4 py-2 text-gray-300">
                     {transaction.quantity}
                   </td>
-                  <td className=" px-4 py-2 text-gray-300">
+                  <td className=" px-4 py-2 text-gray-300  hidden md:table-cell">
                     {transaction.price}
                   </td>
-                  <td className=" px-4 py-2 text-gray-300">
+                  <td className=" px-4 py-2 text-gray-300 hidden md:table-cell">
                     <AnimatePrice
                       price={transaction.quantity * transaction.price}
                     />
@@ -107,8 +107,9 @@ export const Dashboard = () => {
           </table>
         </div>
       </div>
-      <div className=" w-full flex justify-between items-center mt-20">
+      <div className=" w-full flex justify-between flex-col xl:flex-row items-center mt-20">
         <div className="flex flex-col">
+          
           <CryptoPieChart total={total} isLoading={userCrypto?.isLoading} />
         </div>
         <div className="text-4xl flex flex-col justify-center items-center gap-8 w-1/2">

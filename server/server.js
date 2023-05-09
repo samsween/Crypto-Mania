@@ -44,7 +44,7 @@ connect()
         width: 1280,
         height: 1024,
       },
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+     
     });
     return browser;
   })

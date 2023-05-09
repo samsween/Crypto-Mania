@@ -10,7 +10,8 @@ const cors = require("cors");
 const path = require("path");
 const initIo = require("./socket/initIo");
 puppeteer.use(StealthPlugin());
-const io = require("socket.io")(http, {});
+const io = require("socket.io")(http, {
+});
 const PORT = process.env.PORT || 3000;
 
 app.use(cookieParser());
@@ -40,7 +41,7 @@ connect()
         width: 1280,
         height: 1024,
       },
-     
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
     return browser;
   })

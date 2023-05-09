@@ -12,6 +12,7 @@ import Home from "./home";
 import Wallet from "./wallet";
 import { Transactions } from "./transactions";
 import { Dashboard } from "./dashboard";
+import { Profile } from "./profile";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
         <Route path="/wallet" element={<Wallet />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
     </Route>
   )

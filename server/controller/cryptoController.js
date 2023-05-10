@@ -22,6 +22,7 @@ module.exports = {
               cryptoData.symbol.toLowerCase() === crypto.symbol.toLowerCase()
             );
           });
+          console.log(cryptoWithPrice, data);
           return {
             ...crypto._doc,
             current_price: cryptoData.current_price,

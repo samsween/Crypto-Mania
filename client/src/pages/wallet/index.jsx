@@ -14,7 +14,7 @@ const Wallet = () => {
   const { data, isLoading, refetch } = useQuery(
     "wallet",
     () => cryptoService.getUserCrypto(),
-    { refetchInterval: 60 * 1000,  }
+    { refetchInterval: 60 * 1000 }
   );
   const totalWalletValue = useMemo(() => {
     return data?.reduce((acc, crypto) => {
@@ -42,14 +42,13 @@ const Wallet = () => {
       <h1 className="text-2xl text-center  text-gray-300">Your Wallet</h1>
       <div className="px-2 lg:px-20 text-xl">
         <Table>
-          {data.map((crypto, index) => (
+          {data?.map((crypto, index) => (
             <WalletData
               key={crypto._id}
               crypto={crypto}
               index={index}
               setCurrentSelected={setCurrentSelected}
               setOpen={setOpen}
-             
             />
           ))}
         </Table>

@@ -17,9 +17,9 @@ module.exports = {
           setMarketCache(data);
         }
         const cryptoWithPrice = crypto.map((crypto) => {
-          const cryptoData = data.find((cryptoData) => {
+          const cryptoData = data.find((crypData) => {
             return (
-              cryptoData.symbol.toLowerCase() === crypto.symbol.toLowerCase()
+              crypData.symbol.toLowerCase() === crypto.symbol.toLowerCase()
             );
           });
           return {
@@ -28,7 +28,6 @@ module.exports = {
             crypto_id: cryptoData.id,
           };
         });
-        console.log(cryptoWithPrice);
         return res.json(cryptoWithPrice);
       })
       .catch((err) => {

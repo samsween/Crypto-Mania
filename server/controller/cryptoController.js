@@ -22,13 +22,13 @@ module.exports = {
               cryptoData.symbol.toLowerCase() === crypto.symbol.toLowerCase()
             );
           });
-          console.log(cryptoWithPrice, data);
           return {
             ...crypto._doc,
             current_price: cryptoData.current_price,
             crypto_id: cryptoData.id,
           };
         });
+        console.log(cryptoWithPrice);
         return res.json(cryptoWithPrice);
       })
       .catch((err) => {

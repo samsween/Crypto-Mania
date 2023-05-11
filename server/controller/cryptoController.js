@@ -17,9 +17,9 @@ module.exports = {
           setMarketCache(data);
         }
         const cryptoWithPrice = crypto.map((crypto) => {
-          const cryptoData = data.find((cryptoData) => {
+          const cryptoData = data.find((crypData) => {
             return (
-              cryptoData.symbol.toLowerCase() === crypto.symbol.toLowerCase()
+              crypData.symbol.toLowerCase() === crypto.symbol.toLowerCase()
             );
           });
           return {
@@ -31,6 +31,7 @@ module.exports = {
         return res.json(cryptoWithPrice);
       })
       .catch((err) => {
+        console.log(err);
         return res.status(500).json({ error: "Server error" });
       });
   },

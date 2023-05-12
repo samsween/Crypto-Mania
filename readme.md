@@ -13,7 +13,7 @@ To install the app, clone the repository and run `npm install` in the root direc
 
 
 ## Usage
-The app is deployed on Heroku and can be accessed [here]https://crypto-mania.herokuapp.com/). The app can also be run locally by cloning the repository and running `npm run dev` in the root directory.
+The app is deployed on Heroku and can be accessed [here](https://crypto-mania.herokuapp.com/). The app can also be run locally by cloning the repository and running `npm run dev` in the root directory.
 
 ## License
 MIT License

@@ -1,7 +1,7 @@
 # Crypto Mania
 
 ## Description
-This is a react app for buying and selling crypto currency using fake currency (AUD). The app uses the [CoinGecko API](https://www.coingecko.com/en/api) to get the latest crypto currency prices. The app is deployed on Heroku and can be accessed [here](https://cryptomania.herokuapp.com/). The app uses the following technologies:
+This is a react app for buying and selling crypto currency using fake currency (AUD). The app uses the [CoinGecko API](https://www.coingecko.com/en/api) to get the latest crypto currency prices. The app is deployed on Heroku and can be accessed [here](https://crypto-mania.herokuapp.com/). The app uses the following technologies:
 - React
 - React Router
 - MongoDB

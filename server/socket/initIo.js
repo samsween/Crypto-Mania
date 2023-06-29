@@ -58,7 +58,7 @@ async function initIo(io, browser) {
         .catch((err) => {
           console.log(err);
         });
-      await page.click('[data-target="currency-dropdown.button"]');
+      await page.click('[data-currency-selector-modal-target="button"]');
       await page.click('[data-iso-code="aud"]');
       let result = await page.evaluate(getDataFromPage);
       io.to(coin).emit(`price`, result);

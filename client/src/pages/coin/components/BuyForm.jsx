@@ -63,6 +63,7 @@ export const BuyForm = ({ currentPrice, coin, setOpen }) => {
         <div className="w-full flex  flex-col gap-10">
           <div className="w-full gap-2">
             <input
+            disabled={!currentPrice} 
               onChange={onAmountChange}
               value={amount}
               type="number"
@@ -83,7 +84,7 @@ export const BuyForm = ({ currentPrice, coin, setOpen }) => {
             <h1 className="text-center text-lg lg:text-4xl text-orange-500">${amount}</h1>
           </div>
         </div>
-        <button className="w-full h-10 border border-primary-200 hover:border-orange-500 text-2xl duration-200 text-white rounded-md">
+        <button disabled={!currentPrice} className="w-full h-10 border border-primary-200 hover:border-orange-500 text-2xl duration-200 text-white rounded-md">
           Buy
         </button>
       </form>

@@ -10,7 +10,18 @@ const cors = require("cors");
 const path = require("path");
 const initIo = require("./socket/initIo");
 puppeteer.use(StealthPlugin());
-const io = require("socket.io")(http, {});
+const io = require("socket.io")(
+  http,
+  process.env.mode === "production"
+    ? {
+      }
+    : {
+        cors: {
+          origin: "http://localhost:3001",
+      
+        },
+      }
+);
 const PORT = process.env.PORT || 3000;
 
 app.use(cookieParser());

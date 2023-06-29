@@ -70,6 +70,7 @@ export const SellForm = ({ id, symbol, total, refetch, setOpen }) => {
             Amount
           </label>
           <input
+            disabled={!price}
             value={totalToSell}
             onChange={onTotalToSellChange}
             name="total"

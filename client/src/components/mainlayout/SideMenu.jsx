@@ -4,7 +4,6 @@ import {
   CoinBitcoin,
   Wallet,
   History,
-  Settings,
   Logout,
 } from "tabler-icons-react";
 import { useUser } from "../../context/authContext";
